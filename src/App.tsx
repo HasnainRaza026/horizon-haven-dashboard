@@ -1,35 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import AppLayout from "./ui/AppLayout";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="login" element={<h1>Login</h1>} />
+        <Route path="/" element={<AppLayout />}>
+          <Route index element={<Navigate to="dashboard" replace />} />
+          <Route path="dashboard" element={<h1>Dashboard</h1>} />
+          <Route path="bookings" element={<h1>Bookings</h1>}>
+            <Route path=":id" element={<h1>Booking ID</h1>} />
+          </Route>
+          <Route path="rooms" element={<h1>Rooms</h1>} />
+          <Route path="guests" element={<h1>Guests</h1>}>
+            <Route path=":id" element={<h1>Guest ID</h1>} />
+          </Route>
+          <Route path="settings" element={<h1>Settings</h1>} />
+          <Route path="account" element={<h1>Account</h1>} />
+          <Route path="user/add" element={<h1>Add User</h1>} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
-
-export default App
