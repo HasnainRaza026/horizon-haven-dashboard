@@ -3,7 +3,9 @@ import { Outlet } from "react-router";
 function AppLayout() {
   return (
     <>
-      <div>Hello World</div>
+      <div className="bg-base-highlight">
+        <h1>Hello World</h1>
+      </div>
       <Outlet />
     </>
   );

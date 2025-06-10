@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+@theme {
+  --font-logo: "Raleway";
+  --font-primary: "Lato";
+  --font-secondary: "Roboto";
+
+  --color-bg-lt-primary: #ffffff;
+  --color-bg-lt-secondary: #f9fafb;
+  --color-bg-dr-primary: #18212f;
+  --color-bg-dr-secondary: #111827;
+  --color-base: #036ef2;
+  --color-base-hover: #0055bf;
+  --color-base-highlight: rgba(3, 110, 242, 0.08);
+}
