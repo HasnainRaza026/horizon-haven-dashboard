@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { BsHouses } from "react-icons/bs";
 import MenuItem from "./MenuItem";
 import { BiSolidDashboard } from "react-icons/bi";
@@ -12,6 +12,8 @@ import AddButton from "./AddButton";
 import { Link } from "react-router-dom";
 
 function AppLayout() {
+  const location = useLocation();
+
   return (
     <div className="flex h-dvh w-full">
       {/* SideBar */}
@@ -31,41 +33,45 @@ function AppLayout() {
           {/* Menu Items */}
           <div>
             <MenuItem
+              to={"/dashboard"}
               label={"Dashboard"}
-              iconFun={(hover) => {
+              iconFun={(hover, active) => {
                 return (
                   <BiSolidDashboard
-                    className={`${hover ? "text-icon-hover" : "text-tx-dr-primary dark:text-tx-lt-secondary"} text-2xl duration-200`}
+                    className={`${hover || active ? "text-icon-hover" : "text-tx-dr-primary dark:text-tx-lt-secondary"} text-2xl duration-200`}
                   />
                 );
               }}
             />
             <MenuItem
+              to={"/bookings"}
               label={"Bookings"}
-              iconFun={(hover) => {
+              iconFun={(hover, active) => {
                 return (
                   <HiOutlineCalendarDays
-                    className={`${hover ? "text-icon-hover" : "text-tx-dr-primary dark:text-tx-lt-secondary"} text-2xl duration-200`}
+                    className={`${hover || active ? "text-icon-hover" : "text-tx-dr-primary dark:text-tx-lt-secondary"} text-2xl duration-200`}
                   />
                 );
               }}
             />
             <MenuItem
+              to={"/rooms"}
               label={"Rooms"}
-              iconFun={(hover) => {
+              iconFun={(hover, active) => {
                 return (
                   <PiWarehouse
-                    className={`${hover ? "text-icon-hover" : "text-tx-dr-primary dark:text-tx-lt-secondary"} text-2xl duration-200`}
+                    className={`${hover || active ? "text-icon-hover" : "text-tx-dr-primary dark:text-tx-lt-secondary"} text-2xl duration-200`}
                   />
                 );
               }}
             />
             <MenuItem
+              to={"/guests"}
               label={"Guests"}
-              iconFun={(hover) => {
+              iconFun={(hover, active) => {
                 return (
                   <HiOutlineUsers
-                    className={`${hover ? "text-icon-hover" : "text-tx-dr-primary dark:text-tx-lt-secondary"} text-2xl duration-200`}
+                    className={`${hover || active ? "text-icon-hover" : "text-tx-dr-primary dark:text-tx-lt-secondary"} text-2xl duration-200`}
                   />
                 );
               }}
@@ -81,22 +87,26 @@ function AppLayout() {
           </div>
           <div>
             {/* Menu Items */}
+
             <MenuItem
+              to={"/settings"}
               label={"Settings"}
-              iconFun={(hover) => {
+              iconFun={(hover, active) => {
                 return (
                   <AiOutlineSetting
-                    className={`${hover ? "text-icon-hover" : "text-tx-dr-primary dark:text-tx-lt-secondary"} text-2xl duration-200`}
+                    className={`${hover || active ? "text-icon-hover" : "text-tx-dr-primary dark:text-tx-lt-secondary"} text-2xl duration-200`}
                   />
                 );
               }}
             />
+
             <MenuItem
+              to={"/logout"}
               label={"Logout"}
-              iconFun={(hover) => {
+              iconFun={(hover, active) => {
                 return (
                   <HiOutlineLogout
-                    className={`${hover ? "text-icon-hover" : "text-tx-dr-primary dark:text-tx-lt-secondary"} text-2xl duration-200`}
+                    className={`${hover || active ? "text-icon-hover" : "text-tx-dr-primary dark:text-tx-lt-secondary"} text-2xl duration-200`}
                   />
                 );
               }}
@@ -107,7 +117,10 @@ function AppLayout() {
       <div className="flex w-full flex-col">
         <div className="bg-bg-lt-primary dark:bg-bg-dr-primary flex justify-between border-b border-b-gray-100 py-4 pr-5 pl-10 dark:border-0">
           <h2 className="dark:!text-tx-lt-primary text-[28px] font-bold">
-            Dashboard
+            {location.pathname.split("/")[1]
+              ? location.pathname.split("/")[1].charAt(0).toUpperCase() +
+                location.pathname.split("/")[1].slice(1)
+              : "Dashboard"}
           </h2>
           <div className="flex gap-4.5">
             <div className="flex justify-center gap-2.5">

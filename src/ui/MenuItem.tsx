@@ -1,26 +1,32 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 interface PropType {
   label: string;
-  iconFun: (hover: boolean) => React.ReactNode;
+  iconFun: (hover: boolean, active: boolean) => React.ReactNode;
+  to: string;
 }
 
-function MenuItem({ label, iconFun }: PropType) {
+function MenuItem({ label, iconFun, to }: PropType) {
   const [hover, setHover] = useState(false);
+  const [active, setActive] = useState(false);
 
   return (
-    <div
+    <NavLink
+      to={to}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className="hover:bg-main-highlight flex w-full items-center gap-3 rounded-sm !px-2.5 !py-2.5 duration-200"
+      className={({ isActive }) =>
+        `hover:bg-main-highlight flex w-full items-center gap-3 rounded-sm !px-2.5 !py-2.5 duration-200 ${isActive ? setActive(true) : setActive(false)} ${isActive ? "bg-main-highlight" : ""}`
+      }
     >
-      {iconFun(hover)}
+      {iconFun(hover, active)}
       <p
-        className={`text-lg duration-200 ${hover ? "!text-sidebar-tx-hover dark:!text-tx-lt-primary" : "dark:!text-tx-lt-secondary"}`}
+        className={`text-lg duration-200 ${hover || active ? "!text-sidebar-tx-hover dark:!text-tx-lt-primary" : "dark:!text-tx-lt-secondary"}`}
       >
         {label}
       </p>
-    </div>
+    </NavLink>
   );
 }
 
