@@ -1,13 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi2";
 
 function ThemeButton() {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== "undefined") {
+      // First check localStorage, then fallback to system preference
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme) return savedTheme;
+      return window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+    }
+    return "light";
+  });
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    // Save theme to localStorage whenever it changes
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   const handleTheme = () => {
-    if (theme === "light") document.documentElement.classList.add("dark");
-    else document.documentElement.classList.remove("dark");
-    setTheme(() => (theme === "light" ? "dark" : "light"));
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
 
   return (
