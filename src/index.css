@@ -5,11 +5,44 @@
   --font-primary: "Lato";
   --font-secondary: "Roboto";
 
+  /* Background Colors */
   --color-bg-lt-primary: #ffffff;
   --color-bg-lt-secondary: #f9fafb;
   --color-bg-dr-primary: #18212f;
   --color-bg-dr-secondary: #111827;
-  --color-base: #036ef2;
-  --color-base-hover: #0055bf;
-  --color-base-highlight: rgba(3, 110, 242, 0.08);
+
+  /* Text Colors */
+  --color-tx-dr-primary: #313131;
+  --color-tx-dr-secondary: #414141;
+  --color-tx-lt-primary: #f5f5f5;
+  --color-tx-lt-secondary: rgba(245, 245, 245, 0.75);
+  --color-tx-tertary: #818181;
+
+  /* Border Color */
+  --color-lt-border: #e4e4e4;
+  --color-dr-border: #2a2a2a;
+
+  /* Main Color */
+  --color-main: #036ef2;
+  --color-main-hover: #0055bf;
+  --color-main-highlight: rgba(3, 110, 242, 0.08);
+
+  /* Other Colors */
+  --color-icon-hover: #0157c2;
+  --color-sidebar-tx-hover: #0b2c53;
+  --color-white-hover: rgba(255, 255, 255, 0.06);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+h2,
+p {
+  font-family: "Lato";
+  color: var(--color-tx-dr-primary);
+}
+
+.logo-icon {
+  font-size: 1.875rem;
+  color: var(--color-main);
+  stroke-width: 1;
 }
