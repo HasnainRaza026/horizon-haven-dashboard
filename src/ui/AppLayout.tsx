@@ -138,7 +138,7 @@ function AppLayout() {
             <ThemeButton />
           </div>
         </div>
-        <div className="bg-bg-lt-secondary dark:bg-bg-dr-secondary h-full w-full">
+        <div className="bg-bg-lt-secondary dark:bg-bg-dr-secondary no-scrollbar flex h-full w-full items-start justify-center overflow-scroll px-10 py-9">
           <Outlet />
         </div>
       </div>
