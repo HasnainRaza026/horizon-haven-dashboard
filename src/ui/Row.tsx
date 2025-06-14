@@ -1,13 +1,19 @@
+import EllipsisIcon from "./EllipsisIcon";
+
 function Row({
   children,
   padding,
+  noBorder,
 }: {
   children: React.ReactNode;
   padding: string;
+  noBorder?: boolean;
 }) {
   return (
     <div
-      className={`border-b-lt-border dark:border-b-dr-border flex flex-1 items-center border-b ${padding}`}
+      className={`border-b-lt-border dark:border-b-dr-border flex flex-1 items-center border-b ${padding} ${
+        noBorder ? "!border-b-0" : ""
+      }`}
     >
       {children}
     </div>
@@ -25,7 +31,19 @@ function Cell({
 }
 
 function EmptyCell() {
-  return <div className="!h-4.5 !w-7.5" />;
+  return (
+    <Cell style="!w-fit !h-fit">
+      <div className="!h-4.5 !w-7.5" />
+    </Cell>
+  );
+}
+
+function Ellipsis() {
+  return (
+    <Cell style="!w-fit !h-fit">
+      <EllipsisIcon />
+    </Cell>
+  );
 }
 
 function Title({ children }: { children: React.ReactNode }) {
@@ -55,5 +73,6 @@ Row.Cell = Cell;
 Row.EmptyCell = EmptyCell;
 Row.Title = Title;
 Row.DualItem = DualItem;
+Row.Ellipsis = Ellipsis;
 
 export default Row;

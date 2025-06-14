@@ -1,5 +1,11 @@
+import Rooms from "../features/rooms/Rooms";
+
 function RoomsPage() {
-  return <h2>Rooms Page</h2>;
+  return (
+    <>
+      <Rooms />
+    </>
+  );
 }
 
 export default RoomsPage;

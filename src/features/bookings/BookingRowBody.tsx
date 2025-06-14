@@ -1,5 +1,4 @@
 import Badge from "../../ui/Badge";
-import Ellipsis from "../../ui/Ellipsis";
 import Row from "../../ui/Row";
 
 function BookingRowBody() {
@@ -34,9 +33,7 @@ function BookingRowBody() {
           $4,200.00
         </p>
       </Row.Cell>
-      <Row.Cell style="!w-fit !h-fit">
-        <Ellipsis />
-      </Row.Cell>
+      <Row.Ellipsis />
     </Row>
   );
 }

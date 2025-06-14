@@ -6,7 +6,6 @@ function BookingRowHeader() {
       <Row.Cell style="max-w-[100px]">
         <Row.Title>Room</Row.Title>
       </Row.Cell>
-
       <Row.Cell>
         <Row.Title>Guest</Row.Title>
       </Row.Cell>
@@ -19,9 +18,7 @@ function BookingRowHeader() {
       <Row.Cell style="text-center">
         <Row.Title>Amount</Row.Title>
       </Row.Cell>
-      <Row.Cell style="!w-fit !h-fit">
-        <Row.EmptyCell />
-      </Row.Cell>
+      <Row.EmptyCell />
     </Row>
   );
 }
