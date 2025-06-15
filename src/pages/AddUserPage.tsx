@@ -1,5 +1,11 @@
+import User from "../features/user/User";
+
 function AddUserPage() {
-  return <h2>AddUser Page</h2>;
+  return (
+    <>
+      <User />
+    </>
+  );
 }
 
 export default AddUserPage;

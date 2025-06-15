@@ -10,7 +10,7 @@ function BookingDetail() {
       <GuestInformation />
       <Container>
         <Container.Heading>Booking Information</Container.Heading>
-        <Container.Details>
+        <Container.Grid>
           <Container.Detail title="Room" information="008" />
           <Container.Detail title="Stay" information="4 Nights" />
           <Container.Detail title="Check In" information="Nov 22 2025" />
@@ -25,7 +25,7 @@ function BookingDetail() {
             badge={<Badge color="red">No</Badge>}
           />
           <Container.Detail title="Amount" information="$42,00.00" />
-        </Container.Details>
+        </Container.Grid>
       </Container>
       <div className="flex w-full justify-between gap-4 px-2 py-4">
         <div className="space-x-4">

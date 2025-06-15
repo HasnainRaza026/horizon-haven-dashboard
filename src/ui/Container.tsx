@@ -1,6 +1,14 @@
-function Container({ children }: { children: React.ReactNode }) {
+function Container({
+  children,
+  style,
+}: {
+  children: React.ReactNode;
+  style?: string;
+}) {
   return (
-    <div className="bg-bg-lt-primary border-lt-border dark:border-dr-border dark:bg-bg-dr-primary w-[568px] space-y-7 rounded-2xl border px-12 py-7">
+    <div
+      className={`bg-bg-lt-primary border-lt-border dark:border-dr-border dark:bg-bg-dr-primary w-[568px] space-y-7 rounded-2xl border px-12 py-7 ${style}`}
+    >
       {children}
     </div>
   );
@@ -14,10 +22,14 @@ function Heading({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Details({ children }: { children: React.ReactNode }) {
+function Grid({ children }: { children: React.ReactNode }) {
   return (
     <div className="grid grid-cols-2 gap-x-[60px] gap-y-7">{children}</div>
   );
+}
+
+function Flex({ children }: { children: React.ReactNode }) {
+  return <div className="flex flex-col gap-5">{children}</div>;
 }
 
 function Detail({
@@ -41,8 +53,14 @@ function Detail({
   );
 }
 
+function Button({ children }: { children: React.ReactNode }) {
+  return <div className="flex justify-end pt-3.5">{children}</div>;
+}
+
 Container.Heading = Heading;
-Container.Details = Details;
+Container.Grid = Grid;
+Container.Flex = Flex;
 Container.Detail = Detail;
+Container.Button = Button;
 
 export default Container;
