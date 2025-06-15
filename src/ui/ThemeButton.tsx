@@ -31,7 +31,7 @@ function ThemeButton() {
   return (
     <div
       onClick={handleTheme}
-      className="text-tx-dr-primary dark:text-tx-lt-secondary hover:text-icon-hover hover:bg-main-highlight flex h-9 w-9 items-center justify-center rounded-lg border-[rgba(0,0,0,0.14)] hover:border"
+      className="text-tx-dr-primary dark:text-tx-lt-secondary dark:hover:text-main dark:hover:border-main hover:text-icon-hover hover:bg-main-highlight flex h-9 w-9 items-center justify-center rounded-lg border-[rgba(0,0,0,0.14)] duration-200 hover:border"
     >
       {theme === "light" ? (
         <HiOutlineMoon className="text-xl" />

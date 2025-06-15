@@ -1,5 +1,11 @@
+import Guests from "../features/guests/Guests";
+
 function GuestsPage() {
-  return <h2>Guests Page</h2>;
+  return (
+    <>
+      <Guests />
+    </>
+  );
 }
 
 export default GuestsPage;

@@ -12,7 +12,7 @@ function Rooms() {
         <RoomFilter />
         <div className="flex gap-4">
           <SortButton />
-          <ButtonOutline>Add New</ButtonOutline>
+          <ButtonOutline style="!text-sm">Add New</ButtonOutline>
         </div>
       </div>
       <Table>

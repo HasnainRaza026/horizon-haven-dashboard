@@ -117,10 +117,21 @@ function AppLayout() {
       <div className="flex w-full flex-col">
         <div className="bg-bg-lt-primary dark:bg-bg-dr-primary flex justify-between border-b border-b-gray-100 py-4 pr-5 pl-10 dark:border-0">
           <h2 className="dark:!text-tx-lt-primary text-[28px] font-bold">
-            {location.pathname.split("/")[1]
-              ? location.pathname.split("/")[1].charAt(0).toUpperCase() +
-                location.pathname.split("/")[1].slice(1)
-              : "Dashboard"}
+            {(() => {
+              const pathSegments = location.pathname.split("/").filter(Boolean);
+              const [section, id] = pathSegments;
+
+              if (!section) return "Dashboard";
+
+              const formattedSection =
+                section.charAt(0).toUpperCase() + section.slice(1);
+
+              if (section === "user" || pathSegments.length < 2) {
+                return formattedSection;
+              }
+
+              return `${formattedSection.slice(0, -1)} #${id}`;
+            })()}
           </h2>
           <div className="flex gap-4.5">
             <div className="flex justify-center gap-2.5">

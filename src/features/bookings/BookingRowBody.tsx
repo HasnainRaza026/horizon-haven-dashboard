@@ -24,9 +24,7 @@ function BookingRowBody() {
         />
       </Row.Cell>
       <Row.Cell style="max-w-[100px] text-center">
-        <Badge style="bg-bdg-yellow-secondary text-bdg-yellow-primary">
-          Unconfirmed
-        </Badge>
+        <Badge color="yellow">Unconfirmed</Badge>
       </Row.Cell>
       <Row.Cell style="text-center">
         <p className="!text-tx-dr-secondary !font-secondary dark:!text-tx-lt-secondary text-center font-medium">

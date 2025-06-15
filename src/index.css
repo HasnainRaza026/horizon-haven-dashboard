@@ -59,9 +59,15 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 h2,
+h3,
 p {
-  font-family: "Lato";
+  font-family: var(--font-primary);
   color: var(--color-tx-dr-primary);
+}
+
+h4 {
+  font-family: var(--font-primary);
+  color: var(--color-tx-tertary);
 }
 
 button,

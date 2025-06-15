@@ -47,7 +47,7 @@ function Ellipsis() {
 }
 
 function Title({ children }: { children: React.ReactNode }) {
-  return <p className="!text-tx-tertary font-bold">{children}</p>;
+  return <h4 className="font-bold">{children}</h4>;
 }
 
 function DualItem({
