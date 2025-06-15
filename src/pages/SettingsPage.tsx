@@ -1,5 +1,11 @@
+import Settings from "../features/settings/Settings";
+
 function SettingsPage() {
-  return <h2>Settings Page</h2>;
+  return (
+    <>
+      <Settings />
+    </>
+  );
 }
 
 export default SettingsPage;
