@@ -3,8 +3,10 @@ import ButtonFill from "../../ui/ButtonFill";
 import ButtonOutline from "../../ui/ButtonOutline";
 import Container from "../../ui/Container";
 import GuestInformation from "../../ui/GuestInformation";
+import { useNavigate } from "react-router-dom";
 
 function BookingDetail() {
+  const navigate = useNavigate();
   return (
     <div className="flex w-fit flex-col items-center gap-4">
       <GuestInformation />
@@ -32,7 +34,9 @@ function BookingDetail() {
           <ButtonFill color="blue">Check in</ButtonFill>
           <ButtonFill color="red">Delete</ButtonFill>
         </div>
-        <ButtonOutline>Back</ButtonOutline>
+        <ButtonOutline onClickFn={() => navigate("/bookings")}>
+          Back
+        </ButtonOutline>
       </div>
     </div>
   );

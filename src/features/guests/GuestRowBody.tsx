@@ -1,5 +1,6 @@
 import Badge from "../../ui/Badge";
 import Row from "../../ui/Row";
+import GuestAction from "./GuestAction";
 
 function GuestRowBody() {
   return (
@@ -24,7 +25,9 @@ function GuestRowBody() {
       <Row.Cell style="flex justify-center">
         <Badge color="green">Active</Badge>
       </Row.Cell>
-      <Row.Ellipsis />
+      <Row.Cell style="!w-fit !h-fit">
+        <GuestAction />
+      </Row.Cell>
     </Row>
   );
 }

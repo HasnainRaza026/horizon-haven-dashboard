@@ -24,13 +24,14 @@ function ThemeButton() {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  const handleTheme = () => {
+  const handleTheme = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
 
   return (
     <div
-      onClick={handleTheme}
+      onClick={(e) => handleTheme(e)}
       className="text-tx-dr-primary dark:text-tx-lt-secondary dark:hover:text-main dark:hover:border-main hover:text-icon-hover hover:bg-main-highlight flex h-9 w-9 items-center justify-center rounded-lg border-[rgba(0,0,0,0.14)] duration-200 hover:border"
     >
       {theme === "light" ? (

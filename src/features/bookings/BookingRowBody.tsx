@@ -1,5 +1,6 @@
 import Badge from "../../ui/Badge";
 import Row from "../../ui/Row";
+import BookingActions from "./BookingActions";
 
 function BookingRowBody() {
   return (
@@ -31,7 +32,9 @@ function BookingRowBody() {
           $4,200.00
         </p>
       </Row.Cell>
-      <Row.Ellipsis />
+      <Row.Cell style="!w-fit !h-fit">
+        <BookingActions />
+      </Row.Cell>
     </Row>
   );
 }

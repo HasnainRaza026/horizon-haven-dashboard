@@ -1,10 +1,10 @@
 import { Outlet, useLocation } from "react-router";
 import Pagination from "../../ui/Pagination";
-import SortButton from "../../ui/SortButton";
 import Table from "../../ui/Table";
 import BookingFilter from "./BookingFilter";
 import BookingRowBody from "./BookingRowBody";
 import BookingRowHeader from "./BookingRowHeader";
+import SortBooking from "./SortBooking";
 
 function Bookings() {
   const location = useLocation();
@@ -19,7 +19,7 @@ function Bookings() {
       <div className="flex w-full flex-col gap-4.5">
         <div className="flex justify-between">
           <BookingFilter />
-          <SortButton />
+          <SortBooking />
         </div>
         <Table>
           <BookingRowHeader />

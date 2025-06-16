@@ -1,9 +1,9 @@
 import ButtonOutline from "../../ui/ButtonOutline";
-import SortButton from "../../ui/SortButton";
 import Table from "../../ui/Table";
 import RoomFilter from "./RoomFilter";
 import RoomRowBody from "./RoomRowBody";
 import RoomRowHeader from "./RoomRowHeader";
+import SortRoom from "./SortRoom";
 
 function Rooms() {
   return (
@@ -11,7 +11,7 @@ function Rooms() {
       <div className="flex justify-between">
         <RoomFilter />
         <div className="flex gap-4">
-          <SortButton />
+          <SortRoom />
           <ButtonOutline style="!text-sm">Add New</ButtonOutline>
         </div>
       </div>

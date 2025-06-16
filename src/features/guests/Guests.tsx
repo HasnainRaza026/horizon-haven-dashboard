@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from "react-router";
 import Pagination from "../../ui/Pagination";
-import SortButton from "../../ui/SortButton";
 import Table from "../../ui/Table";
+import SortGuests from "./SortGuests";
 import GuestFilter from "./GuestFilter";
 import GuestRowBody from "./GuestRowBody";
 import GuestRowHeader from "./GuestRowHeader";
@@ -18,7 +18,7 @@ function Guests() {
     <div className="flex w-full flex-col gap-4.5">
       <div className="flex justify-between">
         <GuestFilter />
-        <SortButton />
+        <SortGuests />
       </div>
       <Table>
         <GuestRowHeader />

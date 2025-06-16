@@ -1,4 +1,5 @@
 import Row from "../../ui/Row";
+import RoomAction from "./RoomAction";
 
 function RoomRowBody({ noBorder }: { noBorder?: boolean }) {
   return (
@@ -28,7 +29,9 @@ function RoomRowBody({ noBorder }: { noBorder?: boolean }) {
       <Row.Cell style="max-w-[150px]">
         <p className="!font-secondary font-medium !text-[#5FB378]">$25.00</p>
       </Row.Cell>
-      <Row.Ellipsis />
+      <Row.Cell style="!w-fit !h-fit">
+        <RoomAction />
+      </Row.Cell>
     </Row>
   );
 }

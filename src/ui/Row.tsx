@@ -1,5 +1,3 @@
-import EllipsisIcon from "./EllipsisIcon";
-
 function Row({
   children,
   padding,
@@ -38,14 +36,6 @@ function EmptyCell() {
   );
 }
 
-function Ellipsis() {
-  return (
-    <Cell style="!w-fit !h-fit">
-      <EllipsisIcon />
-    </Cell>
-  );
-}
-
 function Title({ children }: { children: React.ReactNode }) {
   return <h4 className="font-bold">{children}</h4>;
 }
@@ -73,6 +63,5 @@ Row.Cell = Cell;
 Row.EmptyCell = EmptyCell;
 Row.Title = Title;
 Row.DualItem = DualItem;
-Row.Ellipsis = Ellipsis;
 
 export default Row;
