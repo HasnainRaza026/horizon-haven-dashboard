@@ -8,6 +8,7 @@ function InputField({
   error,
   register,
   isOptional,
+  accept,
 }: {
   label: string;
   type: string;
@@ -16,6 +17,7 @@ function InputField({
   error?: string;
   register: UseFormRegisterReturn;
   isOptional?: boolean;
+  accept?: string;
 }) {
   return (
     <div className="flex w-full flex-col gap-2.5">
@@ -26,6 +28,7 @@ function InputField({
       <input
         id={id}
         type={type}
+        accept={accept || ""}
         placeholder={placeholder || ""}
         {...register}
         className="dark:text-tx-lt-primary w-full rounded-md border border-black/22 p-2.5 px-3 py-2 text-sm placeholder:text-gray-500 dark:border-white/22"

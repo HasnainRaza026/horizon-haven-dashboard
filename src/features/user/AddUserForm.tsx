@@ -122,7 +122,7 @@ function AddUserForm() {
         />
       </Container.Grid>
       <Container.Button>
-        <ButtonFill color="blue" style="w-full text-sm">
+        <ButtonFill color="blue" style="w-full text-sm" onClickFn={() => {}}>
           Add User
         </ButtonFill>
       </Container.Button>

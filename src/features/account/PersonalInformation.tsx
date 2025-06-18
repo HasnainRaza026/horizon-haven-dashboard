@@ -17,7 +17,7 @@ function PersonalInformation() {
         <Container.Detail title="Role" information="Admin Manager" />
       </Container.Grid>
       <Container.Button>
-        <ButtonFill color="blue" style="text-sm">
+        <ButtonFill color="blue" style="text-sm" onClickFn={() => {}}>
           Update Information
         </ButtonFill>
       </Container.Button>

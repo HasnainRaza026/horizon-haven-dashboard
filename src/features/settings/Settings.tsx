@@ -48,7 +48,7 @@ function Settings() {
         <ButtonFill
           color="blue"
           style="w-full text-sm"
-          onClick={() => handleSubmit()}
+          onClickFn={() => handleSubmit()}
         >
           Update
         </ButtonFill>
