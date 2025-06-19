@@ -3,7 +3,7 @@ import DropDown from "../../ui/DropDown";
 import EllipsisIcon from "../../ui/EllipsisIcon";
 import { HiPencil, HiTrash } from "react-icons/hi2";
 import ConfirmModal from "../../ui/ConfirmModal";
-import RoomModal from "./EditRoomModal";
+import RoomModal from "./RoomModal";
 
 function RoomAction() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);

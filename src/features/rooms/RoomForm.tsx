@@ -1,23 +1,24 @@
 import { useForm } from "react-hook-form";
 import Container from "../../ui/Container";
 import InputField from "../../ui/InputField";
+import type { RoomType } from "./roomTypes";
 
-interface EditRoomForm {
-  roomNumber: string;
-  capacity: string;
-  price: string;
-  discount: string;
-  image: FileList;
-}
+// interface EditRoomForm {
+//   roomNumber: string;
+//   capacity: string;
+//   price: string;
+//   discount: string;
+//   image: FileList;
+// }
 
 function RoomForm() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<EditRoomForm>();
+  } = useForm<RoomType>();
 
-  const onSubmit = (data: EditRoomForm) => {
+  const onSubmit = (data: RoomType) => {
     console.log(data);
   };
 
@@ -27,12 +28,12 @@ function RoomForm() {
         <InputField
           label="Room Number"
           type="text"
-          id="roomNumber"
+          id="room_number"
           placeholder="001"
-          register={register("roomNumber", {
+          register={register("room_number", {
             required: "This field is required",
           })}
-          error={errors?.roomNumber?.message}
+          error={errors?.room_number?.message}
         />
         <InputField
           label="Capacity"

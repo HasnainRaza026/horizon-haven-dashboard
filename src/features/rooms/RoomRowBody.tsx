@@ -1,33 +1,42 @@
+import type { RoomType } from "./roomTypes";
 import Row from "../../ui/Row";
 import RoomAction from "./RoomAction";
 
-function RoomRowBody({ noBorder }: { noBorder?: boolean }) {
+function RoomRowBody({
+  noBorder,
+  room,
+}: {
+  noBorder?: boolean;
+  room: RoomType;
+}) {
   return (
     <Row padding={"px-7.5 py-1.5"} noBorder={noBorder}>
       <Row.Cell style="max-w-[150px]">
         <img
-          src="/src/assets/room.jpg"
+          src={room.image}
           alt="room"
           className="h-[45px] w-[68px] rounded-sm object-cover"
         />
       </Row.Cell>
       <Row.Cell>
         <p className="!font-secondary !text-tx-dr-secondary dark:!text-tx-lt-secondary font-medium">
-          001
+          00{room.room_number}
         </p>
       </Row.Cell>
       <Row.Cell>
         <p className="!text-tx-dr-secondary dark:!text-tx-lt-secondary font-semibold">
-          5 People
+          {room.capacity} People
         </p>
       </Row.Cell>
       <Row.Cell style="text-center">
         <p className="!font-secondary !text-tx-dr-secondary dark:!text-tx-lt-secondary font-medium">
-          $400
+          ${room.price}
         </p>
       </Row.Cell>
       <Row.Cell style="max-w-[150px]">
-        <p className="!font-secondary font-medium !text-[#5FB378]">$25.00</p>
+        <p className="!font-secondary font-medium !text-[#5FB378]">
+          ${room.discount}
+        </p>
       </Row.Cell>
       <Row.Cell style="!w-fit !h-fit">
         <RoomAction />
