@@ -9,6 +9,8 @@ function InputField({
   register,
   isOptional,
   accept,
+  defaultValue,
+  isDisabled,
 }: {
   label: string;
   type: string;
@@ -18,6 +20,8 @@ function InputField({
   register: UseFormRegisterReturn;
   isOptional?: boolean;
   accept?: string;
+  defaultValue?: string;
+  isDisabled?: boolean;
 }) {
   return (
     <div className="flex w-full flex-col gap-2.5">
@@ -30,8 +34,14 @@ function InputField({
         type={type}
         accept={accept || ""}
         placeholder={placeholder || ""}
+        defaultValue={defaultValue || ""}
         {...register}
-        className="dark:text-tx-lt-primary w-full rounded-md border border-black/22 p-2.5 px-3 py-2 text-sm placeholder:text-gray-500 dark:border-white/22"
+        disabled={isDisabled}
+        className={`dark:text-tx-lt-primary w-full rounded-md border border-black/22 p-2.5 px-3 py-2 text-sm placeholder:text-gray-500 dark:border-white/22 ${
+          isDisabled
+            ? "text-tx-tertary dark:text-tx-tertary bg-gray-100 dark:bg-gray-800"
+            : ""
+        }`}
       />
       {error && <span className="text-red-500">{error}</span>}
     </div>

@@ -53,8 +53,16 @@ function Detail({
   );
 }
 
-function Button({ children }: { children: React.ReactNode }) {
-  return <div className="flex justify-end pt-3.5">{children}</div>;
+function Button({
+  children,
+  style,
+}: {
+  children: React.ReactNode;
+  style?: string;
+}) {
+  return (
+    <div className={`flex justify-end pt-3.5 ${style || ""}`}>{children}</div>
+  );
 }
 
 Container.Heading = Heading;

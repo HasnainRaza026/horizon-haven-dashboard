@@ -32,7 +32,7 @@ function FilterTab({
   );
 }
 
-function Tab({ title }: { title: string }) {
+function Tab({ title, onClickFn }: { title: string; onClickFn: () => void }) {
   const { handleActive, active } = useContext(FilterTabContext);
 
   return (
@@ -40,7 +40,10 @@ function Tab({ title }: { title: string }) {
       className={`font-primary text-tx-dr-primary dark:text-bg-lt-primary rounded-md px-2.5 py-1.5 text-sm font-semibold ${
         active === title ? "bg-main text-tx-lt-primary" : ""
       }`}
-      onClick={() => handleActive(title)}
+      onClick={() => {
+        handleActive(title);
+        onClickFn();
+      }}
     >
       {title}
     </button>

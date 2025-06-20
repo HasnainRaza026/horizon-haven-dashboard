@@ -35,11 +35,11 @@ function RoomRowBody({
       </Row.Cell>
       <Row.Cell style="max-w-[150px]">
         <p className="!font-secondary font-medium !text-[#5FB378]">
-          ${room.discount}
+          {room.discount ? `$${room.discount}` : "-"}
         </p>
       </Row.Cell>
       <Row.Cell style="!w-fit !h-fit">
-        <RoomAction />
+        <RoomAction roomId={room.room_number} />
       </Row.Cell>
     </Row>
   );

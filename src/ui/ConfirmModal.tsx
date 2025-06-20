@@ -9,6 +9,7 @@ function ConfirmModal({
   actionBtnColor,
   actionBtnText,
   actionBtnFn,
+  isActionBtnPending,
 }: {
   setIsConfirmModalOpen: (isOpen: boolean) => void;
   title: string;
@@ -16,6 +17,7 @@ function ConfirmModal({
   actionBtnColor?: "red" | "blue";
   actionBtnText: string;
   actionBtnFn: () => void;
+  isActionBtnPending?: boolean;
 }) {
   return (
     <Modal>
@@ -27,6 +29,7 @@ function ConfirmModal({
           onClickFn={() => {
             actionBtnFn();
           }}
+          isPending={isActionBtnPending}
         >
           {actionBtnText}
         </ButtonFill>

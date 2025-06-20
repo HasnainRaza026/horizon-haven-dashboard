@@ -2,12 +2,18 @@ import { useState } from "react";
 import DropDown from "../../ui/DropDown";
 import EllipsisIcon from "../../ui/EllipsisIcon";
 import { HiPencil, HiTrash } from "react-icons/hi2";
-import ConfirmModal from "../../ui/ConfirmModal";
-import RoomModal from "./RoomModal";
+import { useDispatch } from "react-redux";
+import {
+  setIsAddModalOpen,
+  setIsDeleteModalOpen,
+  setIsEditModalOpen,
+  setEditRoomId,
+  setDeleteRoomId,
+} from "./roomSlice";
 
-function RoomAction() {
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+function RoomAction({ roomId }: { roomId: number }) {
+  const dispatch = useDispatch();
+
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -27,7 +33,12 @@ function RoomAction() {
             <DropDown.Item
               setIsOpen={setIsOpen}
               onClickFn={() => {
-                setIsEditModalOpen(true);
+                dispatch(setIsAddModalOpen(false));
+                dispatch(setIsDeleteModalOpen(false));
+                dispatch(setEditRoomId(null));
+                dispatch(setDeleteRoomId(null));
+                dispatch(setEditRoomId(roomId));
+                dispatch(setIsEditModalOpen(true));
               }}
             >
               <span className="flex items-center gap-2">
@@ -37,7 +48,11 @@ function RoomAction() {
             <DropDown.Item
               setIsOpen={setIsOpen}
               onClickFn={() => {
-                setIsDeleteModalOpen(true);
+                dispatch(setIsEditModalOpen(false));
+                dispatch(setIsAddModalOpen(false));
+                dispatch(setEditRoomId(null));
+                dispatch(setIsDeleteModalOpen(true));
+                dispatch(setDeleteRoomId(roomId));
               }}
             >
               <span className="flex items-center gap-2">
@@ -47,22 +62,6 @@ function RoomAction() {
           </DropDown>
         )}
       </div>
-      {isDeleteModalOpen && (
-        <ConfirmModal
-          setIsConfirmModalOpen={setIsDeleteModalOpen}
-          title="Delete Room"
-          text="Are you sure you want to delete this room permanently? "
-          actionBtnText="Delete"
-          actionBtnFn={() => {}}
-        />
-      )}
-      {isEditModalOpen && (
-        <RoomModal
-          title="Edit Room"
-          btnTitle="Edit"
-          setIsModalOpen={setIsEditModalOpen}
-        />
-      )}
     </>
   );
 }

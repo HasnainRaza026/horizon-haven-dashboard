@@ -1,29 +1,30 @@
 import { useMutation } from "@tanstack/react-query";
-import { addRoom } from "../../services/apiRoom";
+import { editRoom } from "../../services/apiRoom";
 import { useQueryClient } from "@tanstack/react-query";
 import type { RoomType } from "./roomTypes";
+import { setIsEditModalOpen } from "./roomSlice";
 import { useDispatch } from "react-redux";
-import { setIsAddModalOpen } from "./roomSlice";
 
-function useAddRoom() {
-  const queryClient = useQueryClient();
+function useEditRoom() {
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
+
   const {
-    mutate: addRoomMutation,
+    mutate: editRoomMutation,
     isPending,
     isError,
   } = useMutation({
-    mutationFn: (roomData: RoomType) => addRoom(roomData),
+    mutationFn: (room: RoomType) => editRoom(room),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["rooms"] });
-      dispatch(setIsAddModalOpen(false));
+      dispatch(setIsEditModalOpen(false));
     },
     onError: (err) => {
       console.log(err);
     },
   });
 
-  return { addRoomMutation, isPending, isError };
+  return { editRoomMutation, isPending, isError };
 }
 
-export default useAddRoom;
+export default useEditRoom;

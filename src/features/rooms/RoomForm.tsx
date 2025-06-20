@@ -2,32 +2,77 @@ import { useForm } from "react-hook-form";
 import Container from "../../ui/Container";
 import InputField from "../../ui/InputField";
 import type { RoomType } from "./roomTypes";
-
-// interface EditRoomForm {
-//   roomNumber: string;
-//   capacity: string;
-//   price: string;
-//   discount: string;
-//   image: FileList;
-// }
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../../store";
+import ButtonFill from "../../ui/ButtonFill";
+import ButtonOutline from "../../ui/ButtonOutline";
+import {
+  setEditRoomId,
+  setIsAddModalOpen,
+  setIsEditModalOpen,
+} from "./roomSlice";
+import useFetchRooms from "./useFetchRooms";
+import useAddRoom from "./useAddRoom";
+import useEditRoom from "./useEditRoom";
 
 function RoomForm() {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<RoomType>();
 
-  const onSubmit = (data: RoomType) => {
-    console.log(data);
+  const { isAddModalOpen, editRoomId, isEditModalOpen } = useSelector(
+    (state: RootState) => state.rooms,
+  );
+
+  const { rooms } = useFetchRooms();
+  const { addRoomMutation, isPending: isAddPending } = useAddRoom();
+  const { editRoomMutation, isPending: isEditPending } = useEditRoom();
+
+  const room = rooms?.find((room) => room.room_number === editRoomId);
+
+  const onSubmitAddRoom = (data: RoomType) => {
+    const newRoom: RoomType = {
+      ...data,
+      room_number: Number(data.room_number),
+      capacity: Number(data.capacity),
+      image: data.image instanceof FileList ? data.image[0] : data.image,
+      price: Number(data.price),
+      discount: data.discount ? Number(data.discount) : null,
+    };
+
+    addRoomMutation(newRoom);
+  };
+
+  const onSubmitEditRoom = (data: RoomType) => {
+    const editedRoom = {
+      ...data,
+      room_number: Number(data.room_number),
+      capacity: Number(data.capacity),
+      image: room.image,
+      newImage: data.image instanceof FileList ? data.image[0] : undefined,
+      price: Number(data.price),
+      discount: data.discount ? Number(data.discount) : null,
+    };
+    editRoomMutation(editedRoom);
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-7">
+    <form
+      onSubmit={handleSubmit(
+        isAddModalOpen ? onSubmitAddRoom : onSubmitEditRoom,
+      )}
+      className="space-y-7"
+    >
       <Container.Grid>
         <InputField
+          defaultValue={room ? `00${room.room_number}` : undefined}
+          isDisabled={isEditPending || isAddPending || isEditModalOpen}
           label="Room Number"
-          type="text"
+          type="number"
           id="room_number"
           placeholder="001"
           register={register("room_number", {
@@ -36,8 +81,10 @@ function RoomForm() {
           error={errors?.room_number?.message}
         />
         <InputField
+          defaultValue={room?.capacity}
+          isDisabled={isEditPending || isAddPending}
           label="Capacity"
-          type="text"
+          type="number"
           id="capacity"
           placeholder="5"
           register={register("capacity", {
@@ -46,8 +93,10 @@ function RoomForm() {
           error={errors?.capacity?.message}
         />
         <InputField
+          defaultValue={room?.price}
+          isDisabled={isEditPending || isAddPending}
           label="Price"
-          type="text"
+          type="number"
           id="price"
           placeholder="100"
           register={register("price", {
@@ -56,25 +105,57 @@ function RoomForm() {
           error={errors?.price?.message}
         />
         <InputField
+          defaultValue={room?.discount}
+          isDisabled={isEditPending || isAddPending}
           label="Discount"
-          type="text"
+          type="number"
           id="discount"
           placeholder="10"
-          register={register("discount", {
-            required: "This field is required",
-          })}
+          register={register("discount")}
           error={errors?.discount?.message}
         />
         <InputField
+          isDisabled={isEditPending || isAddPending}
           label="Room Image"
           type="file"
           id="image"
           placeholder="Upload image"
           accept="image/*"
-          register={register("image")}
+          register={register("image", {
+            required: isAddModalOpen ? "This field is required" : false,
+          })}
           error={errors?.image?.message}
         />
       </Container.Grid>
+      <Container.Button style="gap-4">
+        <ButtonFill
+          color="blue"
+          style="text-sm"
+          type="submit"
+          isPending={isAddPending || isEditPending}
+        >
+          {isAddPending
+            ? "Adding"
+            : isEditPending
+              ? "Updating"
+              : isAddModalOpen
+                ? "Add"
+                : "Update"}
+        </ButtonFill>
+        <ButtonOutline
+          style="text-sm"
+          type="button"
+          disabled={isAddPending || isEditPending}
+          onClickFn={() => {
+            reset();
+            dispatch(setIsAddModalOpen(false));
+            dispatch(setIsEditModalOpen(false));
+            dispatch(setEditRoomId(null));
+          }}
+        >
+          Cancel
+        </ButtonOutline>
+      </Container.Button>
     </form>
   );
 }
