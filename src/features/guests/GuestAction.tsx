@@ -1,13 +1,14 @@
-import { useState } from "react";
 import DropDown from "../../ui/DropDown";
 import EllipsisIcon from "../../ui/EllipsisIcon";
 import { HiEye, HiTrash } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
-import ConfirmModal from "../../ui/ConfirmModal";
+import { setDeleteGuestId, setDropdownId } from "./guestSlice";
+import type { RootState } from "../../store";
+import { useDispatch, useSelector } from "react-redux";
 
-function GuestAction() {
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+function GuestAction({ guestId }: { guestId: number }) {
+  const dispatch = useDispatch();
+  const DropdownId = useSelector((state: RootState) => state.guests.DropdownId);
   const navigate = useNavigate();
 
   return (
@@ -16,18 +17,18 @@ function GuestAction() {
         <button
           onClick={(e) => {
             e.stopPropagation();
-            setIsOpen(!isOpen);
+            dispatch(setDropdownId(guestId));
           }}
         >
           <EllipsisIcon />
         </button>
 
-        {isOpen && (
-          <DropDown setIsOpen={setIsOpen}>
+        {DropdownId === guestId && (
+          <DropDown setIsOpen={() => dispatch(setDropdownId(null))}>
             <DropDown.Item
-              setIsOpen={setIsOpen}
+              setIsOpen={() => dispatch(setDropdownId(null))}
               onClickFn={() => {
-                navigate(`/guests/1`);
+                navigate(`/guests/${guestId}`);
               }}
             >
               <span className="flex items-center gap-2">
@@ -35,9 +36,9 @@ function GuestAction() {
               </span>
             </DropDown.Item>
             <DropDown.Item
-              setIsOpen={setIsOpen}
+              setIsOpen={() => dispatch(setDropdownId(null))}
               onClickFn={() => {
-                setIsDeleteModalOpen(true);
+                dispatch(setDeleteGuestId(guestId));
               }}
             >
               <span className="flex items-center gap-2">
@@ -47,15 +48,6 @@ function GuestAction() {
           </DropDown>
         )}
       </div>
-      {isDeleteModalOpen && (
-        <ConfirmModal
-          setIsConfirmModalOpen={setIsDeleteModalOpen}
-          title="Delete Guest"
-          text="Are you sure you want to delete this guest permanently? "
-          actionBtnText="Delete"
-          actionBtnFn={() => {}}
-        />
-      )}
     </>
   );
 }

@@ -3,7 +3,7 @@ import ButtonOutline from "./ButtonOutline";
 import Modal from "./Modal";
 
 function ConfirmModal({
-  setIsConfirmModalOpen,
+  cancelBtnFn,
   title,
   text,
   actionBtnColor,
@@ -11,7 +11,7 @@ function ConfirmModal({
   actionBtnFn,
   isActionBtnPending,
 }: {
-  setIsConfirmModalOpen: (isOpen: boolean) => void;
+  cancelBtnFn: () => void;
   title: string;
   text: string;
   actionBtnColor?: "red" | "blue";
@@ -36,7 +36,7 @@ function ConfirmModal({
         <ButtonOutline
           style="text-sm"
           onClickFn={() => {
-            setIsConfirmModalOpen(false);
+            cancelBtnFn();
           }}
         >
           Cancel

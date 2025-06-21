@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { addRoom } from "../../services/apiRoom";
+import { addRoom } from "../../services/apiRooms";
 import { useQueryClient } from "@tanstack/react-query";
 import type { RoomType } from "./roomTypes";
 import { useDispatch } from "react-redux";

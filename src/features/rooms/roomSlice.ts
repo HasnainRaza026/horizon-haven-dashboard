@@ -2,9 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isAddModalOpen: false,
-  isEditModalOpen: false,
+  dropdownId: null,
   editRoomId: null,
-  isDeleteModalOpen: false,
   deleteRoomId: null,
 };
 
@@ -12,17 +11,14 @@ const roomSlice = createSlice({
   name: "rooms",
   initialState,
   reducers: {
+    setDropdownId: (state, action) => {
+      state.dropdownId = action.payload;
+    },
     setIsAddModalOpen: (state, action) => {
       state.isAddModalOpen = action.payload;
     },
-    setIsEditModalOpen: (state, action) => {
-      state.isEditModalOpen = action.payload;
-    },
     setEditRoomId: (state, action) => {
       state.editRoomId = action.payload;
-    },
-    setIsDeleteModalOpen: (state, action) => {
-      state.isDeleteModalOpen = action.payload;
     },
     setDeleteRoomId: (state, action) => {
       state.deleteRoomId = action.payload;
@@ -31,9 +27,8 @@ const roomSlice = createSlice({
 });
 
 export const {
+  setDropdownId,
   setIsAddModalOpen,
-  setIsEditModalOpen,
-  setIsDeleteModalOpen,
   setEditRoomId,
   setDeleteRoomId,
 } = roomSlice.actions;

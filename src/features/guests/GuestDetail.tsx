@@ -1,22 +1,42 @@
 import ButtonFill from "../../ui/ButtonFill";
 import ButtonOutline from "../../ui/ButtonOutline";
 import GuestInformation from "../../ui/GuestInformation";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { setDeleteGuestId } from "./guestSlice";
+import { useDispatch, useSelector } from "react-redux";
 import ConfirmModal from "../../ui/ConfirmModal";
+import type { RootState } from "../../store";
+import useDeleteGuest from "./useDeleteGuest";
+import useFetchGuests from "./useFetchGuests";
+import PageSpinner from "../../ui/PageSpinner";
 
 function GuestDetail() {
+  const dispatch = useDispatch();
+  const { id } = useParams();
   const navigate = useNavigate();
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const deleteGuestId = useSelector(
+    (state: RootState) => state.guests.deleteGuestId,
+  );
+  const { deleteGuestMutation, isPending: isDeleteGuestPending } =
+    useDeleteGuest();
+
+  const { guests, isPending: isGuestLoading } = useFetchGuests();
+  const guest = guests?.find((guest) => guest.id === Number(id));
+
+  if (isGuestLoading) return <PageSpinner />;
+  if (!guest) return <div>Guest not found</div>;
+
   return (
     <>
       <div className="flex w-fit flex-col items-center gap-8">
-        <GuestInformation />
+        <GuestInformation guest={guest} />
         <div className="flex w-full justify-end px-2">
-          <div className="space-x-4">
+          <div className="flex gap-4">
             <ButtonFill
               color="red"
-              onClickFn={() => setIsDeleteModalOpen(true)}
+              onClickFn={() => {
+                dispatch(setDeleteGuestId(Number(id)));
+              }}
             >
               Delete
             </ButtonFill>
@@ -26,13 +46,16 @@ function GuestDetail() {
           </div>
         </div>
       </div>
-      {isDeleteModalOpen && (
+      {deleteGuestId && (
         <ConfirmModal
-          setIsConfirmModalOpen={setIsDeleteModalOpen}
+          cancelBtnFn={() => dispatch(setDeleteGuestId(null))}
           title="Delete Guest"
+          isActionBtnPending={isDeleteGuestPending}
           text="Are you sure you want to delete this guest permanently? "
           actionBtnText="Delete"
-          actionBtnFn={() => {}}
+          actionBtnFn={() => {
+            deleteGuestMutation(deleteGuestId);
+          }}
         />
       )}
     </>

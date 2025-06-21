@@ -10,6 +10,7 @@ import Profile from "./Profile";
 import ThemeButton from "./ThemeButton";
 import AddButton from "./AddButton";
 import { Link } from "react-router-dom";
+// import Uploader from "../dev-data/Uploader";
 
 function AppLayout() {
   const location = useLocation();
@@ -153,6 +154,7 @@ function AppLayout() {
           <Outlet />
         </div>
       </div>
+      {/* <Uploader /> */}
     </div>
   );
 }

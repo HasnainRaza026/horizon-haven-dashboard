@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-import { editRoom } from "../../services/apiRoom";
+import { editRoom } from "../../services/apiRooms";
 import { useQueryClient } from "@tanstack/react-query";
 import type { RoomType } from "./roomTypes";
-import { setIsEditModalOpen } from "./roomSlice";
+import { setEditRoomId } from "./roomSlice";
 import { useDispatch } from "react-redux";
 
 function useEditRoom() {
@@ -17,7 +17,7 @@ function useEditRoom() {
     mutationFn: (room: RoomType) => editRoom(room),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["rooms"] });
-      dispatch(setIsEditModalOpen(false));
+      dispatch(setEditRoomId(null));
     },
     onError: (err) => {
       console.log(err);

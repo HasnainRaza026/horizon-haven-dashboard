@@ -6,11 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../store";
 import ButtonFill from "../../ui/ButtonFill";
 import ButtonOutline from "../../ui/ButtonOutline";
-import {
-  setEditRoomId,
-  setIsAddModalOpen,
-  setIsEditModalOpen,
-} from "./roomSlice";
+import { setDeleteRoomId, setEditRoomId, setIsAddModalOpen } from "./roomSlice";
 import useFetchRooms from "./useFetchRooms";
 import useAddRoom from "./useAddRoom";
 import useEditRoom from "./useEditRoom";
@@ -24,7 +20,7 @@ function RoomForm() {
     formState: { errors },
   } = useForm<RoomType>();
 
-  const { isAddModalOpen, editRoomId, isEditModalOpen } = useSelector(
+  const { isAddModalOpen, editRoomId } = useSelector(
     (state: RootState) => state.rooms,
   );
 
@@ -70,7 +66,7 @@ function RoomForm() {
       <Container.Grid>
         <InputField
           defaultValue={room ? `00${room.room_number}` : undefined}
-          isDisabled={isEditPending || isAddPending || isEditModalOpen}
+          isDisabled={isEditPending || isAddPending || Boolean(editRoomId)}
           label="Room Number"
           type="number"
           id="room_number"
@@ -149,7 +145,7 @@ function RoomForm() {
           onClickFn={() => {
             reset();
             dispatch(setIsAddModalOpen(false));
-            dispatch(setIsEditModalOpen(false));
+            dispatch(setDeleteRoomId(null));
             dispatch(setEditRoomId(null));
           }}
         >

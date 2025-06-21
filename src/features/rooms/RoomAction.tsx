@@ -1,20 +1,18 @@
-import { useState } from "react";
 import DropDown from "../../ui/DropDown";
 import EllipsisIcon from "../../ui/EllipsisIcon";
 import { HiPencil, HiTrash } from "react-icons/hi2";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  setIsAddModalOpen,
-  setIsDeleteModalOpen,
-  setIsEditModalOpen,
+  setDropdownId,
   setEditRoomId,
   setDeleteRoomId,
+  setIsAddModalOpen,
 } from "./roomSlice";
+import type { RootState } from "../../store";
 
 function RoomAction({ roomId }: { roomId: number }) {
   const dispatch = useDispatch();
-
-  const [isOpen, setIsOpen] = useState(false);
+  const dropdownId = useSelector((state: RootState) => state.rooms.dropdownId);
 
   return (
     <>
@@ -22,23 +20,20 @@ function RoomAction({ roomId }: { roomId: number }) {
         <button
           onClick={(e) => {
             e.stopPropagation();
-            setIsOpen(!isOpen);
+            dispatch(setDropdownId(roomId));
           }}
         >
           <EllipsisIcon />
         </button>
 
-        {isOpen && (
-          <DropDown setIsOpen={setIsOpen}>
+        {dropdownId === roomId && (
+          <DropDown setIsOpen={() => dispatch(setDropdownId(null))}>
             <DropDown.Item
-              setIsOpen={setIsOpen}
+              setIsOpen={() => dispatch(setDropdownId(null))}
               onClickFn={() => {
                 dispatch(setIsAddModalOpen(false));
-                dispatch(setIsDeleteModalOpen(false));
-                dispatch(setEditRoomId(null));
                 dispatch(setDeleteRoomId(null));
                 dispatch(setEditRoomId(roomId));
-                dispatch(setIsEditModalOpen(true));
               }}
             >
               <span className="flex items-center gap-2">
@@ -46,12 +41,10 @@ function RoomAction({ roomId }: { roomId: number }) {
               </span>
             </DropDown.Item>
             <DropDown.Item
-              setIsOpen={setIsOpen}
+              setIsOpen={() => dispatch(setDropdownId(null))}
               onClickFn={() => {
-                dispatch(setIsEditModalOpen(false));
                 dispatch(setIsAddModalOpen(false));
                 dispatch(setEditRoomId(null));
-                dispatch(setIsDeleteModalOpen(true));
                 dispatch(setDeleteRoomId(roomId));
               }}
             >

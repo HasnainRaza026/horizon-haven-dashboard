@@ -13,7 +13,7 @@ function RoomRowBody({
     <Row padding={"px-7.5 py-1.5"} noBorder={noBorder}>
       <Row.Cell style="max-w-[150px]">
         <img
-          src={room.image}
+          src={room.image as string}
           alt="room"
           className="h-[45px] w-[68px] rounded-sm object-cover"
         />

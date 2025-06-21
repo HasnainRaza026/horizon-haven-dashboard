@@ -20,7 +20,7 @@ function BookingDetail() {
           <BookingInformation />
         </Container>
         <div className="flex w-full justify-between gap-4 px-2 py-4">
-          <div className="space-x-4">
+          <div className="flex gap-4">
             <ButtonFill
               color="blue"
               onClickFn={() => setIsCheckinModalOpen(true)}
@@ -41,7 +41,7 @@ function BookingDetail() {
       </div>
       {isCheckinModalOpen && (
         <ConfirmModal
-          setIsConfirmModalOpen={setIsCheckinModalOpen}
+          cancelBtnFn={() => setIsCheckinModalOpen(false)}
           title="Check in"
           text="Confirm this booking of room 001"
           actionBtnText="Confirm"
@@ -51,7 +51,7 @@ function BookingDetail() {
       )}
       {isDeleteModalOpen && (
         <ConfirmModal
-          setIsConfirmModalOpen={setIsDeleteModalOpen}
+          cancelBtnFn={() => setIsDeleteModalOpen(false)}
           title="Delete Booking"
           text="Are you sure you want to delete this booking permanently? "
           actionBtnText="Delete"

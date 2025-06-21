@@ -2,8 +2,28 @@ import type { RoomType } from "../features/rooms/roomTypes.ts";
 import { addImage, deleteImage, getImageUrl } from "./generalApi.ts";
 import { supabase, supabaseUrl } from "./supabase.ts";
 
-export async function getRooms() {
-  const { data: rooms, error } = await supabase.from("rooms").select("*");
+export async function getRooms(filter: string | null, sort: string | null) {
+  let query = supabase.from("rooms").select("*");
+
+  if (filter) {
+    query =
+      filter === "discount"
+        ? query.not("discount", "is", null)
+        : query.is("discount", null);
+  }
+
+  if (sort) {
+    query =
+      sort === "price-low"
+        ? query.order("price", { ascending: true })
+        : sort === "price-high"
+          ? query.order("price", { ascending: false })
+          : sort === "capacity-low"
+            ? query.order("capacity", { ascending: true })
+            : query.order("capacity", { ascending: false });
+  }
+
+  const { data: rooms, error } = await query;
 
   if (error) {
     console.log(error);

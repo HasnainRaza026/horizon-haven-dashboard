@@ -60,7 +60,7 @@ function BookingActions() {
       </div>
       {isDeleteModalOpen && (
         <ConfirmModal
-          setIsConfirmModalOpen={setIsDeleteModalOpen}
+          cancelBtnFn={() => setIsDeleteModalOpen(false)}
           title="Delete Booking"
           text="Are you sure you want to delete this booking permanently? "
           actionBtnText="Delete"

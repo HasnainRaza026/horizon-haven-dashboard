@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-import { deleteRoom } from "../../services/apiRoom";
+import { deleteRoom } from "../../services/apiRooms";
 import { useQueryClient } from "@tanstack/react-query";
 import type { RoomType } from "./roomTypes";
-import { setIsDeleteModalOpen } from "./roomSlice";
+import { setDeleteRoomId } from "./roomSlice";
 import { useDispatch } from "react-redux";
 
 function useDeleteRoom() {
@@ -17,7 +17,7 @@ function useDeleteRoom() {
     mutationFn: (room: RoomType) => deleteRoom(room),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["rooms"] });
-      dispatch(setIsDeleteModalOpen(false));
+      dispatch(setDeleteRoomId(null));
     },
     onError: (err) => {
       console.log(err);
