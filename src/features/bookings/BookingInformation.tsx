@@ -1,23 +1,53 @@
 import Badge from "../../ui/Badge";
 import Container from "../../ui/Container";
+import { formatDate } from "date-fns";
+import type { BookingType } from "./bookingTypes";
 
-function BookingInformation() {
+function BookingInformation({ booking }: { booking: BookingType }) {
   return (
     <Container.Grid>
-      <Container.Detail title="Room" information="008" />
-      <Container.Detail title="Stay" information="4 Nights" />
-      <Container.Detail title="Check In" information="Nov 22 2025" />
-      <Container.Detail title="Check Out" information="Nov 26 2025" />
-      <Container.Detail title="Total Guests" information="5" />
+      <Container.Detail
+        title="Room"
+        information={`00${booking?.room_number}`}
+      />
+      <Container.Detail title="Stay" information={`${booking?.stay} nights`} />
+      <Container.Detail
+        title="Check In"
+        information={formatDate(booking.checkin_date, "MMM d, yyyy")}
+      />
+      <Container.Detail
+        title="Check Out"
+        information={formatDate(booking.checkout_date, "MMM d, yyyy")}
+      />
+      <Container.Detail
+        title="Total Guests"
+        information={`${booking?.total_persons}`}
+      />
       <Container.Detail
         title="Status"
-        badge={<Badge color="yellow">Unconfirmed</Badge>}
+        badge={
+          <Badge
+            color={
+              booking?.booking_status === "unconfirmed"
+                ? "yellow"
+                : booking?.booking_status === "check-in"
+                  ? "green"
+                  : "black"
+            }
+          >
+            {booking?.booking_status}
+          </Badge>
+        }
       />
       <Container.Detail
         title="Breakfast"
-        badge={<Badge color="red">No</Badge>}
+        badge={
+          <Badge color={booking?.breakfast ? "green" : "red"}>
+            {booking?.breakfast ? "Yes" : "No"}
+          </Badge>
+        }
       />
-      <Container.Detail title="Amount" information="$42,00.00" />
+      <Container.Detail title="Amount" information={`$${booking?.amount}`} />
     </Container.Grid>
   );
 }

@@ -9,6 +9,7 @@ import type { RootState } from "../../store";
 import useDeleteGuest from "./useDeleteGuest";
 import PageSpinner from "../../ui/PageSpinner";
 import useFetchGuestById from "./useFetchGuestById";
+import NotFound from "../../ui/NotFound";
 
 function GuestDetail() {
   const dispatch = useDispatch();
@@ -22,12 +23,7 @@ function GuestDetail() {
   const { guest, isPending: isGuestLoading } = useFetchGuestById();
 
   if (isGuestLoading) return <PageSpinner />;
-  if (!guest)
-    return (
-      <h1 className="text-tx-dr-primary dark:text-tx-lt-secondary text-center text-lg font-medium">
-        Guest not found
-      </h1>
-    );
+  if (!guest) return <NotFound message="Guest not found" />;
 
   return (
     <>

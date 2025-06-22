@@ -3,7 +3,7 @@ const styles = {
   green: "text-bdg-green-primary bg-bdg-green-secondary",
   red: "text-bdg-red-primary bg-bdg-red-secondary",
   black:
-    "text-bdg-lt-black-primary bg-bdg-lt-black-secondary dark:text-bdg-dr-black-primary",
+    "text-tx-tertary bg-bdg-dr-black-secondary dark:bg-bdg-lt-black-secondary",
 };
 
 function Badge({

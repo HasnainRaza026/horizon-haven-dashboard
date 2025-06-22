@@ -19,27 +19,27 @@ function SortBooking() {
         <DropDown setIsOpen={setIsOpen}>
           <DropDown.Item
             setIsOpen={setIsOpen}
-            onClickFn={() => handleSort("date-newest")}
+            onClickFn={() => handleSort("date-recent")}
           >
-            Date (newest)
+            Date (recent)
           </DropDown.Item>
           <DropDown.Item
             setIsOpen={setIsOpen}
-            onClickFn={() => handleSort("date-oldest")}
+            onClickFn={() => handleSort("date-old")}
           >
-            Date (oldest)
-          </DropDown.Item>
-          <DropDown.Item
-            setIsOpen={setIsOpen}
-            onClickFn={() => handleSort("amount-high")}
-          >
-            Amount (high)
+            Date (old)
           </DropDown.Item>
           <DropDown.Item
             setIsOpen={setIsOpen}
             onClickFn={() => handleSort("amount-low")}
           >
             Amount (low)
+          </DropDown.Item>
+          <DropDown.Item
+            setIsOpen={setIsOpen}
+            onClickFn={() => handleSort("amount-high")}
+          >
+            Amount (high)
           </DropDown.Item>
         </DropDown>
       )}

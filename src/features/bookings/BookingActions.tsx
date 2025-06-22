@@ -1,15 +1,19 @@
-import { useState } from "react";
 import DropDown from "../../ui/DropDown";
 import EllipsisIcon from "../../ui/EllipsisIcon";
 import { HiEye, HiMiniCheckCircle, HiTrash } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
-import CheckinModal from "./CheckinModal";
-import ConfirmModal from "../../ui/ConfirmModal";
+import {
+  setBookingStatusId,
+  setDeleteBookingId,
+  setDropdownId,
+} from "./bookingSlice";
+import type { RootState } from "../../store";
+import { useDispatch, useSelector } from "react-redux";
+import type { BookingType } from "./bookingTypes";
 
-function BookingActions() {
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [isCheckinModalOpen, setIsCheckinModalOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+function BookingActions({ booking }: { booking: BookingType }) {
+  const dispatch = useDispatch();
+  const { DropdownId } = useSelector((state: RootState) => state.bookings);
   const navigate = useNavigate();
   return (
     <>
@@ -17,38 +21,43 @@ function BookingActions() {
         <button
           onClick={(e) => {
             e.stopPropagation();
-            setIsOpen(!isOpen);
+            dispatch(setDropdownId(booking.id));
           }}
         >
           <EllipsisIcon />
         </button>
 
-        {isOpen && (
-          <DropDown setIsOpen={setIsOpen}>
+        {DropdownId === booking.id && (
+          <DropDown setIsOpen={() => dispatch(setDropdownId(null))}>
             <DropDown.Item
-              setIsOpen={setIsOpen}
+              setIsOpen={() => dispatch(setDropdownId(null))}
               onClickFn={() => {
-                navigate(`/bookings/1`);
+                navigate(`${booking.id}`);
               }}
             >
               <span className="flex items-center gap-2">
                 <HiEye className="size-4" /> View Details
               </span>
             </DropDown.Item>
+            {booking.booking_status !== "check-out" && (
+              <DropDown.Item
+                setIsOpen={() => dispatch(setDropdownId(null))}
+                onClickFn={() => {
+                  dispatch(setBookingStatusId(booking.id));
+                }}
+              >
+                <span className="flex items-center gap-2">
+                  <HiMiniCheckCircle className="size-4" />{" "}
+                  {booking.booking_status === "unconfirmed"
+                    ? "Check In"
+                    : "Check Out"}
+                </span>
+              </DropDown.Item>
+            )}
             <DropDown.Item
-              setIsOpen={setIsOpen}
+              setIsOpen={() => dispatch(setDropdownId(null))}
               onClickFn={() => {
-                setIsCheckinModalOpen(true);
-              }}
-            >
-              <span className="flex items-center gap-2">
-                <HiMiniCheckCircle className="size-4" /> Check In
-              </span>
-            </DropDown.Item>
-            <DropDown.Item
-              setIsOpen={setIsOpen}
-              onClickFn={() => {
-                setIsDeleteModalOpen(true);
+                dispatch(setDeleteBookingId(booking.id));
               }}
             >
               <span className="flex items-center gap-2">
@@ -58,18 +67,6 @@ function BookingActions() {
           </DropDown>
         )}
       </div>
-      {isDeleteModalOpen && (
-        <ConfirmModal
-          cancelBtnFn={() => setIsDeleteModalOpen(false)}
-          title="Delete Booking"
-          text="Are you sure you want to delete this booking permanently? "
-          actionBtnText="Delete"
-          actionBtnFn={() => {}}
-        />
-      )}
-      {isCheckinModalOpen && (
-        <CheckinModal setIsModalOpen={setIsCheckinModalOpen} />
-      )}
     </>
   );
 }

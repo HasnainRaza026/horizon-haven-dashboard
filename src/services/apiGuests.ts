@@ -5,7 +5,10 @@ export async function getGuests(
   sort: string | null,
   page: number,
 ) {
-  let query = supabase.from("guests").select("*", { count: "exact" });
+  let query = supabase
+    .from("guests")
+    .select("*", { count: "exact" })
+    .order("id", { ascending: true, nullsFirst: true });
 
   if (page) {
     query = query.range((page - 1) * 10, page * 10 - 1);
@@ -52,6 +55,7 @@ export async function getGuestById(id: number) {
 
   return data;
 }
+
 export async function deleteGuest(guestId: number) {
   const { error: guestError } = await supabase
     .from("guests")

@@ -1,40 +1,52 @@
 import Badge from "../../ui/Badge";
 import Row from "../../ui/Row";
 import BookingActions from "./BookingActions";
+import type { BookingType } from "./bookingTypes";
+import formatDate from "../../utils/formatDate";
 
-function BookingRowBody() {
+function BookingRowBody({ booking }: { booking: BookingType }) {
   return (
     <>
       <Row padding={"px-7.5 py-2.5"}>
         <Row.Cell style="max-w-[100px]">
           <p className="!font-secondary !text-tx-dr-secondary dark:!text-tx-lt-secondary font-medium">
-            008
+            00{booking.room_number}
           </p>
         </Row.Cell>
         <Row.Cell>
           <Row.DualItem
-            primary="Hassnain Raza"
-            secondary="hasnainraza@gmail.com"
+            primary={`${booking.guests.first_name} ${booking.guests.last_name}`}
+            secondary={booking.guests.email}
             style="text-sm"
           />
         </Row.Cell>
         <Row.Cell>
           <Row.DualItem
-            primary="4 nights"
-            secondary="Nov 22, 2025 — Nov 26, 2025"
+            primary={`${booking.stay} nights`}
+            secondary={`${formatDate(booking.checkin_date)} - ${formatDate(booking.checkout_date)}`}
             style="text-xs font-medium"
           />
         </Row.Cell>
         <Row.Cell style="max-w-[100px] text-center">
-          <Badge color="yellow">Unconfirmed</Badge>
+          <Badge
+            color={
+              booking.booking_status === "unconfirmed"
+                ? "yellow"
+                : booking.booking_status === "check-in"
+                  ? "green"
+                  : "black"
+            }
+          >
+            {booking.booking_status}
+          </Badge>
         </Row.Cell>
         <Row.Cell style="text-center">
           <p className="!text-tx-dr-secondary !font-secondary dark:!text-tx-lt-secondary text-center font-medium">
-            $4,200.00
+            ${booking.amount}
           </p>
         </Row.Cell>
         <Row.Cell style="!w-fit !h-fit">
-          <BookingActions />
+          <BookingActions booking={booking} />
         </Row.Cell>
       </Row>
     </>

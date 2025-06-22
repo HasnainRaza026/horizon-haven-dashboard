@@ -29,9 +29,8 @@
   --color-bdg-green-secondary: rgba(47, 130, 72, 0.2);
   --color-bdg-red-primary: #ba2727;
   --color-bdg-red-secondary: rgba(186, 39, 39, 0.2);
-  --color-bdg-dr-black-primary: rgba(0, 0, 0, 0.5);
   --color-bdg-dr-black-secondary: rgba(0, 0, 0, 0.1);
-  --color-bdg-lt-black-secondary: rgba(255, 255, 255, 0.8);
+  --color-bdg-lt-black-secondary: rgba(255, 255, 255, 0.08);
 
   /* Main Color */
   --color-main: #036ef2;
