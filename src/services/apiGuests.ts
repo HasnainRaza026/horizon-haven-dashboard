@@ -1,7 +1,15 @@
 import { supabase } from "./supabase";
 
-export async function getGuests(filter: string | null, sort: string | null) {
-  let query = supabase.from("guests").select("*");
+export async function getGuests(
+  filter: string | null,
+  sort: string | null,
+  page: number,
+) {
+  let query = supabase.from("guests").select("*", { count: "exact" });
+
+  if (page) {
+    query = query.range((page - 1) * 10, page * 10 - 1);
+  }
 
   if (filter) {
     query =
@@ -20,16 +28,30 @@ export async function getGuests(filter: string | null, sort: string | null) {
           });
   }
 
-  const { data: guests, error } = await query;
+  const { data: guests, error, count } = await query;
 
   if (error) {
     console.log(error);
     throw new Error("Guests data could not be loaded");
   }
 
-  return guests;
+  return { guests, total: count };
 }
 
+export async function getGuestById(id: number) {
+  const { data, error } = await supabase
+    .from("guests")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.log(error);
+    throw new Error("Guest data could not be loaded");
+  }
+
+  return data;
+}
 export async function deleteGuest(guestId: number) {
   const { error: guestError } = await supabase
     .from("guests")

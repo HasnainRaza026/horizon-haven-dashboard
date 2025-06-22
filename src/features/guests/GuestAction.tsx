@@ -28,7 +28,7 @@ function GuestAction({ guestId }: { guestId: number }) {
             <DropDown.Item
               setIsOpen={() => dispatch(setDropdownId(null))}
               onClickFn={() => {
-                navigate(`/guests/${guestId}`);
+                navigate(`${guestId}`);
               }}
             >
               <span className="flex items-center gap-2">

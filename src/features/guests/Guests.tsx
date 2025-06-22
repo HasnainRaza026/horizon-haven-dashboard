@@ -14,9 +14,9 @@ import { setDeleteGuestId } from "./guestSlice";
 import useDeleteGuest from "./useDeleteGuest";
 
 function Guests() {
-  const { guests, isError, isPending } = useFetchGuests();
+  const { guests, total, isError, isPending } = useFetchGuests();
   const { deleteGuestMutation, isPending: isDeleteGuestPending } =
-    useDeleteGuest();
+    useDeleteGuest({ onSuccess: () => {} });
   const deleteGuestId = useSelector(
     (state: RootState) => state.guests.deleteGuestId,
   );
@@ -48,7 +48,7 @@ function Guests() {
           {guests?.map((guest) => (
             <GuestRowBody key={guest.id} guest={guest} />
           ))}
-          <Pagination />
+          <Pagination totalRows={total} />
         </Table>
       </div>
       {deleteGuestId && (

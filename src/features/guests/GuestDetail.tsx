@@ -1,30 +1,33 @@
 import ButtonFill from "../../ui/ButtonFill";
 import ButtonOutline from "../../ui/ButtonOutline";
 import GuestInformation from "../../ui/GuestInformation";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { setDeleteGuestId } from "./guestSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ConfirmModal from "../../ui/ConfirmModal";
 import type { RootState } from "../../store";
 import useDeleteGuest from "./useDeleteGuest";
-import useFetchGuests from "./useFetchGuests";
 import PageSpinner from "../../ui/PageSpinner";
+import useFetchGuestById from "./useFetchGuestById";
 
 function GuestDetail() {
   const dispatch = useDispatch();
-  const { id } = useParams();
   const navigate = useNavigate();
   const deleteGuestId = useSelector(
     (state: RootState) => state.guests.deleteGuestId,
   );
   const { deleteGuestMutation, isPending: isDeleteGuestPending } =
-    useDeleteGuest();
+    useDeleteGuest({ onSuccess: () => navigate(-1) });
 
-  const { guests, isPending: isGuestLoading } = useFetchGuests();
-  const guest = guests?.find((guest) => guest.id === Number(id));
+  const { guest, isPending: isGuestLoading } = useFetchGuestById();
 
   if (isGuestLoading) return <PageSpinner />;
-  if (!guest) return <div>Guest not found</div>;
+  if (!guest)
+    return (
+      <h1 className="text-tx-dr-primary dark:text-tx-lt-secondary text-center text-lg font-medium">
+        Guest not found
+      </h1>
+    );
 
   return (
     <>
@@ -35,14 +38,12 @@ function GuestDetail() {
             <ButtonFill
               color="red"
               onClickFn={() => {
-                dispatch(setDeleteGuestId(Number(id)));
+                dispatch(setDeleteGuestId(guest.id));
               }}
             >
               Delete
             </ButtonFill>
-            <ButtonOutline onClickFn={() => navigate("/guests")}>
-              Back
-            </ButtonOutline>
+            <ButtonOutline onClickFn={() => navigate(-1)}>Back</ButtonOutline>
           </div>
         </div>
       </div>
