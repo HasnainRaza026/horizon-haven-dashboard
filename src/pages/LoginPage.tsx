@@ -1,5 +1,11 @@
+import Login from "../features/authentication/Login";
+
 function LoginPage() {
-  return <h2>Login Page</h2>;
+  return (
+    <>
+      <Login />
+    </>
+  );
 }
 
 export default LoginPage;

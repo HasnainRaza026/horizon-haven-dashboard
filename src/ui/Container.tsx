@@ -14,9 +14,15 @@ function Container({
   );
 }
 
-function Heading({ children }: { children: React.ReactNode }) {
+function Heading({
+  children,
+  style,
+}: {
+  children: React.ReactNode;
+  style?: string;
+}) {
   return (
-    <h3 className="dark:!text-tx-lt-primary text-xl font-semibold">
+    <h3 className={`dark:!text-tx-lt-primary text-xl font-semibold ${style}`}>
       {children}
     </h3>
   );

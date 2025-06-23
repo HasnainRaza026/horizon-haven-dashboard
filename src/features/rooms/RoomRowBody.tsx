@@ -15,6 +15,7 @@ function RoomRowBody({
         <img
           src={room.image as string}
           alt="room"
+          loading="lazy"
           className="h-[45px] w-[68px] rounded-sm object-cover"
         />
       </Row.Cell>

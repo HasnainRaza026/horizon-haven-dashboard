@@ -1,4 +1,4 @@
-import User from "../features/user/User";
+import User from "../features/authentication/User";
 
 function AddUserPage() {
   return (

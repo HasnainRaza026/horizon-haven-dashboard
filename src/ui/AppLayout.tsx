@@ -1,5 +1,4 @@
 import { Outlet, useLocation } from "react-router-dom";
-import { BsHouses } from "react-icons/bs";
 import MenuItem from "./MenuItem";
 import { BiSolidDashboard } from "react-icons/bi";
 import { HiOutlineCalendarDays, HiOutlineUsers } from "react-icons/hi2";
@@ -10,25 +9,22 @@ import Profile from "./Profile";
 import ThemeButton from "./ThemeButton";
 import AddButton from "./AddButton";
 import { Link } from "react-router-dom";
+import Logo from "./Logo";
+import useLogout from "../features/authentication/useLogout";
 // import Uploader from "../dev-data/Uploader";
 
 function AppLayout() {
   const location = useLocation();
-
+  const { logoutMutation, isPending } = useLogout();
   return (
     <div className="flex h-dvh w-full">
       {/* SideBar */}
       <div className="bg-bg-lt-primary dark:bg-bg-dr-primary flex h-full flex-col justify-between border-r border-r-gray-100 !p-5 dark:border-0">
-        <div className="!space-y-6">
+        <div className="!space-y-8">
           {/* Logo */}
           <div>
             <Link to={"/"}>
-              <div className="flex gap-3.5">
-                <BsHouses className="logo-icon" />
-                <h1 className="font-logo dark:text-tx-lt-primary text-2xl text-nowrap">
-                  <span className="font-bold">Horizon</span> <span>Haven</span>
-                </h1>
-              </div>
+              <Logo />
             </Link>
           </div>
           {/* Menu Items */}
@@ -102,7 +98,10 @@ function AppLayout() {
             />
 
             <MenuItem
-              to={"/logout"}
+              isPending={isPending}
+              onClick={() => {
+                logoutMutation();
+              }}
               label={"Logout"}
               iconFun={(hover, active) => {
                 return (

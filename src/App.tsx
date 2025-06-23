@@ -12,13 +12,14 @@ import BookingDetail from "./features/bookings/BookingDetail";
 import GuestDetail from "./features/guests/GuestDetail";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import ProtectedRoute from "./features/authentication/ProtectedRoute";
 
 export default function App() {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: 0,
-        gcTime: 1000 * 60 * 60 * 24, // 24 hours
+        staleTime: 1000 * 60 * 5, // 5 minutes
+        gcTime: 1000 * 60 * 60, // keep in cache 1 hour
         retry: 1,
       },
     },
@@ -29,7 +30,14 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="login" element={<LoginPage />} />
-          <Route path="/" element={<AppLayout />}>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<Navigate to="dashboard" replace />} />
             <Route path="dashboard" element={<DashboardPage />} />
             <Route path="bookings" element={<BookingsPage />}>
