@@ -17,6 +17,7 @@ function RoomForm() {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm<RoomType>();
 
@@ -29,6 +30,15 @@ function RoomForm() {
   const { editRoomMutation, isPending: isEditPending } = useEditRoom();
 
   const room = rooms?.find((room) => room.room_number === editRoomId);
+
+  // Watch form values for changes
+  const watchedValues = watch(["capacity", "price", "discount", "image"]);
+
+  const hasEdited =
+    room?.capacity !== Number(watchedValues[0]) ||
+    room?.price !== Number(watchedValues[1]) ||
+    room?.discount !== (watchedValues[2] ? Number(watchedValues[2]) : null) ||
+    (watchedValues[3] as FileList)?.length > 0;
 
   const onSubmitAddRoom = (data: RoomType) => {
     const newRoom: RoomType = {
@@ -129,6 +139,7 @@ function RoomForm() {
           style="text-sm"
           type="submit"
           isPending={isAddPending || isEditPending}
+          isDisabled={!hasEdited}
         >
           {isAddPending
             ? "Adding"

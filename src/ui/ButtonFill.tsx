@@ -12,6 +12,7 @@ function ButtonFill({
   onClickFn,
   type,
   isPending,
+  isDisabled,
 }: {
   children: React.ReactNode;
   color: "red" | "blue";
@@ -19,13 +20,14 @@ function ButtonFill({
   onClickFn?: () => void;
   type?: "button" | "submit" | "reset";
   isPending?: boolean;
+  isDisabled?: boolean;
 }) {
   return (
     <button
-      className={`text-tx-lt-primary flex items-center justify-center gap-2 rounded-md px-3 py-2 font-semibold duration-200 ${colorStyles[color]} ${style}`}
+      className={`text-tx-lt-primary flex items-center justify-center gap-2 rounded-md px-3 py-2 font-semibold duration-200 ${colorStyles[color]} ${style} ${isDisabled ? "opacity-50" : ""}`}
       onClick={onClickFn ? () => onClickFn() : undefined}
       type={type}
-      disabled={isPending}
+      disabled={isPending || isDisabled}
     >
       {isPending && <Spinner />}
       {children}
