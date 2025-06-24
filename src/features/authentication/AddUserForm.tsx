@@ -2,28 +2,26 @@ import ButtonFill from "../../ui/ButtonFill";
 import Container from "../../ui/Container";
 import { useForm } from "react-hook-form";
 import InputField from "../../ui/InputField";
-
-interface AddUserForm {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  role: string;
-  address?: string;
-  password: string;
-  confirmPassword: string;
-}
+import type { SignupType } from "./authTypes";
+import useSignup from "./useSignup";
 
 function AddUserForm() {
   const {
     register,
     handleSubmit,
     getValues,
+    reset,
     formState: { errors },
-  } = useForm<AddUserForm>();
+  } = useForm<SignupType>();
 
-  const onSubmit = (data: AddUserForm) => {
-    console.log(data);
+  const { createUserMutation, isPending } = useSignup();
+
+  const onSubmit = (data: SignupType) => {
+    createUserMutation(data, {
+      onSuccess: () => {
+        reset();
+      },
+    });
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-7">
@@ -31,22 +29,22 @@ function AddUserForm() {
         <InputField
           label="First Name"
           type="text"
-          id="firstName"
+          id="first_name"
           placeholder="John"
-          register={register("firstName", {
+          register={register("first_name", {
             required: "This field is required",
           })}
-          error={errors?.firstName?.message}
+          error={errors?.first_name?.message}
         />
         <InputField
           label="Last Name"
           type="text"
-          id="lastName"
+          id="last_name"
           placeholder="Doe"
-          register={register("lastName", {
+          register={register("last_name", {
             required: "This field is required",
           })}
-          error={errors?.lastName?.message}
+          error={errors?.last_name?.message}
         />
         <InputField
           label="Email"
@@ -65,16 +63,16 @@ function AddUserForm() {
         <InputField
           label="Phone Number"
           type="text"
-          id="phoneNumber"
+          id="phone_number"
           placeholder="+1234567890"
-          register={register("phoneNumber", {
+          register={register("phone_number", {
             required: "This field is required",
             pattern: {
               value: /^\+?[1-9]\d{1,14}$/,
               message: "Invalid phone number",
             },
           })}
-          error={errors?.phoneNumber?.message}
+          error={errors?.phone_number?.message}
         />
         <InputField
           label="Role"
@@ -110,19 +108,25 @@ function AddUserForm() {
         <InputField
           label="Confirm Password"
           type="password"
-          id="confirmPassword"
-          register={register("confirmPassword", {
+          id="confirm_password"
+          register={register("confirm_password", {
             required: "This field is required",
             validate: (value) => {
               const password = getValues("password");
               return value === password || "Passwords do not match";
             },
           })}
-          error={errors?.confirmPassword?.message}
+          error={errors?.confirm_password?.message}
         />
       </Container.Grid>
       <Container.Button>
-        <ButtonFill color="blue" style="w-full text-sm" onClickFn={() => {}}>
+        <ButtonFill
+          color="blue"
+          style="w-full text-sm"
+          type="submit"
+          isPending={isPending}
+          isDisabled={isPending}
+        >
           Add User
         </ButtonFill>
       </Container.Button>

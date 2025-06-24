@@ -38,7 +38,7 @@ function Login() {
               label="Email"
               type="email"
               id="email"
-              defaultValue="admin@example.com"
+              defaultValue="fakeuser@example.com"
               error={errors?.email?.message}
               register={register("email", {
                 required: "This field is required",
@@ -52,7 +52,7 @@ function Login() {
               label="Password"
               type="password"
               id="password"
-              defaultValue="Admin@123"
+              defaultValue="Fake@123"
               error={errors?.password?.message}
               register={register("password", {
                 required: "This field is required",
@@ -76,6 +76,8 @@ function Login() {
           </Container.Button>
         </form>
       </Container>
+
+      {/* <Rooms /> */}
     </div>
   );
 }
