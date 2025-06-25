@@ -68,7 +68,7 @@ function AddUserForm() {
           register={register("phone_number", {
             required: "This field is required",
             pattern: {
-              value: /^\+?[1-9]\d{1,14}$/,
+              value: /^[0]{1}[0-9]{10}$/,
               message: "Invalid phone number",
             },
           })}

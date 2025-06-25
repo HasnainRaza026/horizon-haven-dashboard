@@ -13,6 +13,7 @@ function useFetchUser() {
 
   return {
     user,
+    userData: user?.user?.user_metadata,
     isLoading,
     isError,
     isAuthenticated: user?.user?.role === "authenticated",

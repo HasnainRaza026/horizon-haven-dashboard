@@ -11,11 +11,26 @@ import AddButton from "./AddButton";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import useLogout from "../features/authentication/useLogout";
+import useFetchUser from "../features/authentication/useFetchUser";
+import PageSpinner from "./PageSpinner";
+import NotFound from "./NotFound";
+import { FaUserCircle } from "react-icons/fa";
 // import Uploader from "../dev-data/Uploader";
 
 function AppLayout() {
   const location = useLocation();
   const { logoutMutation, isPending } = useLogout();
+
+  const { userData, isLoading, isError } = useFetchUser();
+
+  if (isLoading) {
+    return <PageSpinner />;
+  }
+
+  if (isError) {
+    return <NotFound message="Something went wrong" />;
+  }
+
   return (
     <div className="flex h-dvh w-full">
       {/* SideBar */}
@@ -139,11 +154,15 @@ function AppLayout() {
                 <AddButton />
               </Link>
               <Link to={"/account"}>
-                <img
-                  src="/src/assets/img.jpg"
-                  alt="Avatar"
-                  className="h-10 w-10 rounded-full"
-                />
+                {userData?.avatar ? (
+                  <img
+                    src={userData?.avatar}
+                    alt="Avatar"
+                    className="h-10 w-10 rounded-full object-cover"
+                  />
+                ) : (
+                  <FaUserCircle className="text-tx-dr-primary dark:text-tx-lt-secondary text-4xl" />
+                )}
               </Link>
             </div>
             <ThemeButton />

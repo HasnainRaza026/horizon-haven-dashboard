@@ -52,7 +52,7 @@ function Login() {
               label="Password"
               type="password"
               id="password"
-              defaultValue="Fake@123"
+              defaultValue="fake@123"
               error={errors?.password?.message}
               register={register("password", {
                 required: "This field is required",
