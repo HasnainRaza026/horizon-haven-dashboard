@@ -1,3 +1,4 @@
+import { getDateDaysAgo } from "../utils/getDateDaysAgo";
 import { supabase } from "./supabase";
 
 export async function getBookings(
@@ -96,4 +97,81 @@ export async function getBookingById(id: number) {
   }
 
   return data;
+}
+
+export async function getTodayBookings() {
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("*, guests(first_name, last_name, email)")
+    .eq("checkin_date", new Date().toISOString().split("T")[0]);
+
+  if (error) {
+    console.log(error);
+    throw new Error("Today bookings data could not be loaded");
+  }
+
+  if (data?.length === 0) {
+    const { data: todayBookings, error } = await supabase
+      .from("bookings")
+      .select("*, guests(first_name, last_name, email)")
+      .order("id", { ascending: true, nullsFirst: true })
+      .or("booking_status.eq.unconfirmed,booking_status.eq.check-in")
+      .limit(5);
+
+    if (error) {
+      console.log(error);
+      throw new Error("Today bookings data could not be loaded");
+    }
+
+    return todayBookings;
+  }
+
+  return data;
+}
+
+export async function getBookingsAfterDate(days: number) {
+  const date = getDateDaysAgo(days);
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("*, guests(first_name, last_name, email)")
+    .gte("checkin_date", date);
+
+  if (error) {
+    console.log(error);
+    throw new Error("Bookings data could not be loaded");
+  }
+
+  return data;
+}
+
+export async function getCheckinAfterDate(days: number) {
+  const date = getDateDaysAgo(days);
+  const { error, count } = await supabase
+    .from("bookings")
+    .select("*", { count: "exact", head: true })
+    .gte("checkin_date", date)
+    .eq("booking_status", "check-in");
+
+  if (error) {
+    console.log(error);
+    throw new Error("Checkin data could not be loaded");
+  }
+
+  return count;
+}
+
+export async function getCheckoutAfterDate(days: number) {
+  const date = getDateDaysAgo(days);
+  const { error, count } = await supabase
+    .from("bookings")
+    .select("*", { count: "exact", head: true })
+    .gte("checkout_date", date)
+    .eq("booking_status", "check-out");
+
+  if (error) {
+    console.log(error);
+    throw new Error("Checkout data could not be loaded");
+  }
+
+  return count;
 }

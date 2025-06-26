@@ -32,7 +32,7 @@ function BookingActions({ booking }: { booking: BookingType }) {
             <DropDown.Item
               setIsOpen={() => dispatch(setDropdownId(null))}
               onClickFn={() => {
-                navigate(`${booking.id}`);
+                navigate(`/bookings/${booking.id}`);
               }}
             >
               <span className="flex items-center gap-2">

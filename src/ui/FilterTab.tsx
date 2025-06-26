@@ -25,7 +25,7 @@ function FilterTab({
 
   return (
     <FilterTabContext.Provider value={{ active, setActive, handleActive }}>
-      <div className="bg-bg-lt-primary dark:bg-bg-dr-primary flex gap-1 rounded-md p-1 shadow">
+      <div className="bg-bg-lt-primary dark:bg-bg-dr-primary border-lt-border dark:border-dr-border flex gap-1 rounded-md border p-1">
         {children}
       </div>
     </FilterTabContext.Provider>

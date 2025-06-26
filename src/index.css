@@ -32,6 +32,10 @@
   --color-bdg-dr-black-secondary: rgba(0, 0, 0, 0.1);
   --color-bdg-lt-black-secondary: rgba(255, 255, 255, 0.08);
 
+  /* Trend Colors */
+  --color-trend-green: #39b269;
+  --color-trend-red: #cf3a3a;
+
   /* Main Color */
   --color-main: #036ef2;
   --color-main-hover: #0055bf;
