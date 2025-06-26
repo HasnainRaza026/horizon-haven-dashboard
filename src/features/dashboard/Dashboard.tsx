@@ -2,6 +2,7 @@ import WelcomeMessage from "./WelcomeMessage";
 import DashboardFilter from "./DashboardFilter";
 import AllStats from "./AllStats";
 import BookingsToday from "./BookingsToday";
+import StatsChart from "./StatsChart";
 
 function Dashboard() {
   return (
@@ -12,6 +13,7 @@ function Dashboard() {
       </div>
       <AllStats />
       <BookingsToday />
+      <StatsChart />
     </div>
   );
 }
