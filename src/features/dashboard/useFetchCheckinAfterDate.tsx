@@ -1,12 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "react-router-dom";
 import { getCheckinAfterDate } from "../../services/apiBookings";
+import useGetDaysParams from "./useGetDaysParams";
 
 function useFetchCheckinAfterDate() {
-  const [searchParams] = useSearchParams();
-
-  const filterValue = searchParams.get("filter-dashboard")?.split("-")[0];
-  const days = Number(filterValue) || 7;
+  const days = useGetDaysParams();
 
   const {
     data: checkin,
@@ -18,7 +15,7 @@ function useFetchCheckinAfterDate() {
   });
 
   return {
-    checkin: checkin,
+    checkin,
     isErrorCheckin,
     isPendingCheckin,
   };
