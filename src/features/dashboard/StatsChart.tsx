@@ -7,18 +7,25 @@ import {
   AreaChart,
 } from "recharts";
 import CustomTooltip from "./CustomTooltip";
-
-const data = [
-  { date: "Jan", Sale: 4000 },
-  { date: "Feb", Sale: 3000 },
-  { date: "Mar", Sale: 2000 },
-  { date: "Apr", Sale: 2780 },
-  { date: "May", Sale: 1890 },
-  { date: "Jun", Sale: 2390 },
-  { date: "Jul", Sale: 3490 },
-];
+import useFetchBookingsAfterDate from "./useFetchBookingsAfterDate";
+import PageSpinner from "../../ui/PageSpinner";
+import NotFound from "../../ui/NotFound";
+import { format, parseISO } from "date-fns";
+import downSampleData from "../../utils/downSampleData";
 
 export default function StatsChart() {
+  const { bookings, isError, isPending } = useFetchBookingsAfterDate();
+
+  if (isPending) return <PageSpinner />;
+  if (isError) return <NotFound />;
+
+  const chartData = bookings.map((item) => {
+    return {
+      date: format(parseISO(item.checkin_date), "d MMM"),
+      Sale: item.booking_status === "unconfirmed" ? 0 : item.amount,
+    };
+  });
+
   return (
     <div className="borde dark:border-dr-border h-[500px] w-full space-y-6 rounded-lg border border-black/18 px-6 py-5">
       <h3 className="dark:!text-tx-lt-primary text-2xl font-semibold">
@@ -26,7 +33,7 @@ export default function StatsChart() {
       </h3>
       <ResponsiveContainer width="100%" height={400}>
         <AreaChart
-          data={data}
+          data={downSampleData(chartData)}
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
         >
           <defs>

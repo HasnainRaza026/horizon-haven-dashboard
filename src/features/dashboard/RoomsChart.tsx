@@ -7,17 +7,9 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import CustomTooltip from "./CustomTooltip";
-
-const data = [
-  { room_number: "Room 001", value: 400 },
-  { room_number: "Room 002", value: 300 },
-  { room_number: "Room 003", value: 300 },
-  { room_number: "Room 004", value: 200 },
-  { room_number: "Room 005", value: 500 },
-  { room_number: "Room 006", value: 350 },
-  { room_number: "Room 007", value: 250 },
-  { room_number: "Room 008", value: 100 },
-];
+import useFetchBookingsAfterDate from "./useFetchBookingsAfterDate";
+import PageSpinner from "../../ui/PageSpinner";
+import NotFound from "../../ui/NotFound";
 
 const COLORS = [
   "#0088FE",
@@ -31,6 +23,31 @@ const COLORS = [
 ];
 
 function RoomsChart() {
+  const data = [
+    { room_number: "Room 001", value: 0 },
+    { room_number: "Room 002", value: 0 },
+    { room_number: "Room 003", value: 0 },
+    { room_number: "Room 004", value: 0 },
+    { room_number: "Room 005", value: 0 },
+    { room_number: "Room 006", value: 0 },
+    { room_number: "Room 007", value: 0 },
+    { room_number: "Room 008", value: 0 },
+  ];
+  const { bookings, isError, isPending } = useFetchBookingsAfterDate();
+
+  if (isPending) return <PageSpinner />;
+  if (isError) return <NotFound />;
+
+  for (let i = 0; i < bookings.length; i++) {
+    const roomNumber = bookings[i].room_number;
+    for (let j = 0; j < data.length; j++) {
+      const dataRoomNumber = Number(data[j].room_number.split(" ")[1][2]);
+      if (dataRoomNumber === roomNumber) {
+        data[j].value += 1;
+      }
+    }
+  }
+
   return (
     <div className="borde dark:border-dr-border h-[500px] w-[40%] rounded-lg border border-black/18 px-6 py-5">
       <h3 className="dark:!text-tx-lt-primary text-2xl font-semibold">
