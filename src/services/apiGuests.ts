@@ -5,10 +5,7 @@ export async function getGuests(
   sort: string | null,
   page: number,
 ) {
-  let query = supabase
-    .from("guests")
-    .select("*", { count: "exact" })
-    .order("id", { ascending: true, nullsFirst: true });
+  let query = supabase.from("guests").select("*", { count: "exact" });
 
   if (page) {
     query = query.range((page - 1) * 10, page * 10 - 1);

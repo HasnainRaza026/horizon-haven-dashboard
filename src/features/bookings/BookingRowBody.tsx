@@ -27,7 +27,7 @@ function BookingRowBody({ booking }: { booking: BookingType }) {
             style="text-xs font-medium"
           />
         </Row.Cell>
-        <Row.Cell style="max-w-[100px] text-center">
+        <Row.Cell style="max-w-[100px] flex justify-center">
           <Badge
             color={
               booking.booking_status === "unconfirmed"

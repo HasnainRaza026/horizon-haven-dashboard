@@ -14,8 +14,7 @@ dist-ssr
 
 .env
 .todo
-/src/dev-data
-test.js
+
 
 # Editor directories and files
 .vscode/*

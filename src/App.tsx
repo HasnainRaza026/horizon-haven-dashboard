@@ -11,8 +11,8 @@ import AddUserPage from "./pages/AddUserPage";
 import BookingDetail from "./features/bookings/BookingDetail";
 import GuestDetail from "./features/guests/GuestDetail";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ProtectedRoute from "./features/authentication/ProtectedRoute";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export default function App() {
   const queryClient = new QueryClient({
@@ -26,7 +26,8 @@ export default function App() {
   });
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* For Development Only */}
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       <BrowserRouter>
         <Routes>
           <Route path="login" element={<LoginPage />} />
