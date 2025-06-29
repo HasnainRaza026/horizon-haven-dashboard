@@ -2,6 +2,7 @@ import WelcomeMessage from "./WelcomeMessage";
 import DashboardFilter from "./DashboardFilter";
 import AllStats from "./AllStats";
 import BookingsToday from "./BookingsToday";
+import RoomsChart from "./RoomsChart";
 import StatsChart from "./StatsChart";
 
 function Dashboard() {
@@ -12,8 +13,11 @@ function Dashboard() {
         <DashboardFilter />
       </div>
       <AllStats />
+      <div className="flex">
+        <StatsChart />
+        <RoomsChart />
+      </div>
       <BookingsToday />
-      <StatsChart />
     </div>
   );
 }

@@ -14,7 +14,7 @@ function Stats({
   const isTrendPositive = trend.startsWith("+");
 
   return (
-    <div className="dark:bg-bg-dr-primary dark:border-dr-border flex flex-col gap-3 rounded-lg border border-black/18 px-5 py-4">
+    <div className="dark:border-dr-border flex flex-col gap-3 rounded-lg border border-black/18 px-5 py-4">
       <div className="flex items-center gap-1.5">
         {titleIcon}
         <h4 className="font-medium">{title}</h4>
