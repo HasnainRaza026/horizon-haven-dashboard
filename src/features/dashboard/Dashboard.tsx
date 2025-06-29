@@ -13,7 +13,7 @@ function Dashboard() {
         <DashboardFilter />
       </div>
       <AllStats />
-      <div className="flex">
+      <div className="flex justify-between gap-8">
         <StatsChart />
         <RoomsChart />
       </div>

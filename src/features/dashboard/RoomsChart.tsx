@@ -32,7 +32,7 @@ const COLORS = [
 
 function RoomsChart() {
   return (
-    <div className="borde border-lt-border dark:border-dr-border h-[450px] w-[40%] rounded-lg border px-6 py-5">
+    <div className="borde dark:border-dr-border h-[500px] w-[40%] rounded-lg border border-black/18 px-6 py-5">
       <h3 className="dark:!text-tx-lt-primary text-2xl font-semibold">
         Rooms Occupation
       </h3>

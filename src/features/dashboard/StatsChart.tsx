@@ -6,56 +6,48 @@ import {
   Area,
   AreaChart,
 } from "recharts";
+import CustomTooltip from "./CustomTooltip";
 
 const data = [
-  { month: "Jan", uv: 4000, pv: 2400, amt: 2400 },
-  { month: "Feb", uv: 3000, pv: 1398, amt: 2210 },
-  { month: "Mar", uv: 2000, pv: 9800, amt: 2290 },
-  { month: "Apr", uv: 2780, pv: 3908, amt: 2000 },
-  { month: "May", uv: 1890, pv: 4800, amt: 2181 },
-  { month: "Jun", uv: 2390, pv: 3800, amt: 2500 },
-  { month: "Jul", uv: 3490, pv: 4300, amt: 2100 },
+  { date: "Jan", Sale: 4000 },
+  { date: "Feb", Sale: 3000 },
+  { date: "Mar", Sale: 2000 },
+  { date: "Apr", Sale: 2780 },
+  { date: "May", Sale: 1890 },
+  { date: "Jun", Sale: 2390 },
+  { date: "Jul", Sale: 3490 },
 ];
 
 export default function StatsChart() {
   return (
-    <ResponsiveContainer width="100%" height={500}>
-      <AreaChart
-        data={data}
-        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-      >
-        <defs>
-          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#8884d8" stopOpacity={0.2} />
-            <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-          </linearGradient>
-        </defs>
-        <defs>
-          <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.2} />
-            <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
-          </linearGradient>
-        </defs>
-        <XAxis dataKey="month" />
-        <YAxis />
-        <Tooltip />
-        <Area
-          type="monotone"
-          dataKey="uv"
-          stroke="#4e47d6"
-          strokeWidth={2}
-          fillOpacity={1}
-          fill="url(#colorUv)"
-        />
-        <Area
-          type="monotone"
-          dataKey="pv"
-          stroke="#82ca9d"
-          strokeWidth={2}
-          fillOpacity={1}
-          fill="url(#colorPv)"
-        />
-      </AreaChart>
-    </ResponsiveContainer>
+    <div className="borde dark:border-dr-border h-[500px] w-full space-y-6 rounded-lg border border-black/18 px-6 py-5">
+      <h3 className="dark:!text-tx-lt-primary text-2xl font-semibold">
+        Revenue
+      </h3>
+      <ResponsiveContainer width="100%" height={400}>
+        <AreaChart
+          data={data}
+          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+        >
+          <defs>
+            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#4f46e5" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#4f46e5" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <XAxis dataKey="date" />
+          <YAxis />
+          <Tooltip content={<CustomTooltip />} />
+          <Area
+            type="monotone"
+            dataKey="Sale"
+            stroke="#4e47d6"
+            strokeWidth={2}
+            fillOpacity={1}
+            fill="url(#colorUv)"
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
   );
 }

@@ -20,10 +20,13 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
 
   return (
     <div className="bg-bg-lt-primary dark:bg-bg-dr-primary border-lt-border dark:border-dr-border flex gap-2 rounded-md border px-3 py-2">
-      <div
-        style={{ backgroundColor: color }}
-        className="h-4 w-4 rounded-sm"
-      ></div>
+      {color && (
+        <div
+          className="h-4 w-4 rounded-sm"
+          style={{ backgroundColor: color }}
+        />
+      )}
+
       <p className="!text-tx-dr-primary dark:!text-tx-lt-primary text-sm font-semibold">
         {item.name}:
       </p>

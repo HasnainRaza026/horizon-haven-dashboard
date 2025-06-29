@@ -30,7 +30,7 @@ function BookingsToday() {
   return (
     <>
       <div className="flex flex-col gap-5">
-        <h3 className="dark:!text-tx-lt-primary text-2xl font-medium">
+        <h3 className="dark:!text-tx-lt-primary text-2xl font-semibold">
           Bookings Today
         </h3>
         <Table>
